@@ -8,11 +8,6 @@ export const colors = {
     text: '#fff',
 }
   
-export const fonts = {
-    
-}
-  
 export const theme = {
-    colors,
-    fonts
+    colors
 }

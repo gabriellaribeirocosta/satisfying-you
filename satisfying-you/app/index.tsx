@@ -2,6 +2,7 @@ import { StyleSheet, View, Text } from 'react-native'
 import { theme } from '@/constants/theme'
 
 export default function Login() {
+  
 
   return (
     <View style={styles.container}>
@@ -13,13 +14,12 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.purple,
-    flex: 1
+    flex: 1,
   },
   title: {
     color: theme.colors.text,
     fontSize: 64,
-    fontWeight: 400,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Averia'
   }
-
 })
