@@ -5,7 +5,7 @@ export const colors = {
     blue: '#419ED7',
     gray: '#B0CCDE',
     red: '#FD7979',
-    text: '#fff',
+    white: '#fff',
 }
   
 export const theme = {
