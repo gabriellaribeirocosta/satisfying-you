@@ -24,15 +24,14 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: theme.colors.green,
         width: '100%',
-        height: 50, 
+        height: 34, 
         justifyContent: 'center'
     },
     title: {
         fontWeight: 400,
-        fontSize: 28,
+        fontSize: 14,
         color: theme.colors.white,
         textAlign: 'center',
         fontFamily: 'Averia',
-        
     }
 });

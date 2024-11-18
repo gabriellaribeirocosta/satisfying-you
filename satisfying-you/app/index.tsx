@@ -22,12 +22,12 @@ export default function Login() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Satisfying.you</Text>
-        <MaterialIcons name="sentiment-satisfied" size={75} color="#fff" />
+        <MaterialIcons name="sentiment-satisfied" size={45} color="#fff" />
       </View>
       <View style={styles.content}>
         <View style={styles.inputs}>
           <Input label={'E-mail'}></Input>
-          <Input label={'Senha'}></Input>
+          <Input label={'Senha'} secureText={true}></Input>
           <Btn title={'Entrar'} onPress={handleEntrar}></Btn>
         </View>
         <Btn title={'Criar minha conta'} onPress={handleRegistro} style={styles.registro}></Btn>
@@ -41,15 +41,16 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.purple,
     flex: 1,
-    paddingTop: 30,
-    paddingBottom: 20,
+    paddingTop: 20,
+    paddingBottom: 10,
     width: '100%'
   },
   header: {
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'center',
-    gap: 48,
+    gap: 24,
+    alignItems: 'center'
   },
   content:{
     width: '100%',
@@ -58,21 +59,21 @@ const styles = StyleSheet.create({
   },
   title: {
     color: theme.colors.white,
-    fontSize: 64,
+    fontSize: 36,
     fontFamily: 'Averia'
   },
   registro: {
     backgroundColor: theme.colors.blue,
-    height: 37,
-    marginTop: 62,
-    marginBottom: 14
+    height: 27,
+    marginTop: 36,
+    marginBottom: 8
   },
   redefinir: {
     backgroundColor: theme.colors.gray,
-    height: 37
+    height: 27
   },
   inputs: {
-    gap: 20,
-    marginTop: 35
+    gap: 14,
+    marginTop: 15
   }
 })
