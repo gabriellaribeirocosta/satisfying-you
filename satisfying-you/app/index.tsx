@@ -1,13 +1,15 @@
 import { StyleSheet, View, Text } from 'react-native'
 import { theme } from '@/constants/theme'
+import { useRouter } from 'expo-router'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Btn } from '@/components/Btn'
 import { Input } from '@/components/Input'
 
 export default function Login() {
+  const router = useRouter();
   
   function handleEntrar() {
-
+    router.push('/screens/Home')
   }
 
   function handleRegistro() {
@@ -15,7 +17,7 @@ export default function Login() {
   }
 
   function handleRedefinir() {
-
+    router.push('/screensRecuperarSenha')
   }
 
   return (

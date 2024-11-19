@@ -3,6 +3,38 @@ import { useRouter } from 'expo-router';
 import { theme } from '@/constants/theme';
 import { MaterialIcons } from '@expo/vector-icons';
 
+
+export default function Coleta () {
+    return (
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.title}>O que você achou do Carnaval 2024?</Text>
+          </View>
+          <View style={styles.content}>
+            <View style={styles.icon}>
+              <MaterialIcons name="sentiment-very-dissatisfied" size={75} color="red" />
+              <Text style={styles.label}>Péssimo</Text>
+            </View>
+            <View style={styles.icon}>
+              <MaterialIcons name="sentiment-dissatisfied" size={75} color="tomato" />
+              <Text style={styles.label}>Ruim</Text>
+            </View>
+            <View style={styles.icon}>
+              <MaterialIcons name="sentiment-neutral" size={75} color="yellow" />
+              <Text style={styles.label}>Neutro</Text>
+            </View>
+            <View style={styles.icon}>
+              <MaterialIcons name="sentiment-satisfied" size={75} color="#2d9923" />
+              <Text style={styles.label}>Bom</Text>
+            </View>
+            <View style={styles.icon}>
+              <MaterialIcons name="sentiment-very-satisfied" size={75} color="green" />
+              <Text style={styles.label}>Excelente</Text>
+            </View>
+          </View>
+        </View>
+      );
+};
 export default function Coleta() {
   const router = useRouter();
 
@@ -45,6 +77,7 @@ export default function Coleta() {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
