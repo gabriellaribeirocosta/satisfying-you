@@ -22,13 +22,13 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.white,
         color: theme.colors.blue,
         fontFamily: 'Averia',
-        fontSize: 28,
-        height: 50,
+        fontSize: 14,
+        height: 34,
         paddingLeft: 20
     },
     label: {
         color: theme.colors.white,
-        fontSize: 28,
+        fontSize: 14,
         fontFamily: 'Averia'
     }
 })
