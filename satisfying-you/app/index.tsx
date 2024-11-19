@@ -1,13 +1,15 @@
 import { StyleSheet, View, Text } from 'react-native'
 import { theme } from '@/constants/theme'
+import { useRouter } from 'expo-router'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Btn } from '@/components/Btn'
 import { Input } from '@/components/Input'
 
 export default function Login() {
+  const router = useRouter();
   
   function handleEntrar() {
-
+    router.push('/screens/Home')
   }
 
   function handleRegistro() {
@@ -15,7 +17,7 @@ export default function Login() {
   }
 
   function handleRedefinir() {
-
+    router.push('/screensRecuperarSenha')
   }
 
   return (
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.purple,
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 20,
     paddingBottom: 20,
     width: '100%'
   },
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
   registro: {
     backgroundColor: theme.colors.blue,
     height: 37,
-    marginTop: 62,
+    marginTop: 32,
     marginBottom: 14
   },
   redefinir: {
@@ -73,6 +75,6 @@ const styles = StyleSheet.create({
   },
   inputs: {
     gap: 20,
-    marginTop: 35
+    marginTop: 10
   }
 })

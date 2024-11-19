@@ -2,6 +2,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { theme } from '@/constants/theme';
 import { MaterialIcons } from '@expo/vector-icons'
 
+
 export default function Coleta () {
     return (
         <View style={styles.container}>
