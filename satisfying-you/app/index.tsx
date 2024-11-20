@@ -13,7 +13,7 @@ export default function Login() {
   }
 
   function handleRegistro() {
-
+    router.push('/screens/SignUp')
   }
 
   function handleRedefinir() {
