@@ -1,7 +1,6 @@
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Input } from "@/components/Input";
 import { Btn } from "@/components/Btn";
 import { useState } from 'react';
 
