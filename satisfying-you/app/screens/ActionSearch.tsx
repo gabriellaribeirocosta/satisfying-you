@@ -14,7 +14,7 @@ export default function ActionSearch() {
     <View style={styles.container}>
       <View style={styles.content}>
         
-        <CardOp onPress={() => handlePress('/screens/Modificar')} icon="file-document-edit-outline" text="Modificar"></CardOp>
+        <CardOp onPress={() => handlePress('/screens/EditSearch')} icon="file-document-edit-outline" text="Modificar"></CardOp>
         <CardOp onPress={() => handlePress('/screens/Coleta')} icon="checkbox-multiple-marked-outline" text="Coletar dados"></CardOp>
         <CardOp onPress={() => handlePress('/screens/Report')} icon="chart-donut" text="Relatório"></CardOp>
       </View>
