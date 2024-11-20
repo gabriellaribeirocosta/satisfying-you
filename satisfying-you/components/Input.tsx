@@ -4,8 +4,8 @@ import { theme } from '@/constants/theme'
 interface InputProps {
     label: string;
     secureText?: boolean;
-    value: string; // O valor que será exibido no campo de entrada
-    onChangeText: (text: string) => void; // Função que será chamada ao mudar o texto
+    value?: string; // O valor que será exibido no campo de entrada
+    onChangeText?: (text: string) => void; // Função que será chamada ao mudar o texto
 }
 
 export function Input({ label, secureText, value, onChangeText }: InputProps) {

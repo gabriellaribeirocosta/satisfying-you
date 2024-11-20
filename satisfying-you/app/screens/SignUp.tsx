@@ -5,7 +5,7 @@ import { Input } from '@/components/Input'
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 
-export default function Login() {
+export default function SignUp() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
