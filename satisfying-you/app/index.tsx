@@ -10,7 +10,7 @@ export default function Login() {
   const router = useRouter();
   
   function handleEntrar() {
-    router.push('/screens/Home')
+    router.push('/Drawer')
   }
 
   function handleRegistro() {

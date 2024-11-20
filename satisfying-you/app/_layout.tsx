@@ -49,6 +49,7 @@ export default function Layout() {
       <Stack.Screen name='screens/ActionSearch' options={{ title: 'Pesquisa' }}/>
       <Stack.Screen name='screens/Coleta' options={{ headerShown: false }}/>
       <Stack.Screen name='screens/Acknowledgements' options={{ headerShown: false }}/>
+      <Stack.Screen name='Drawer' options={{ headerShown: false }}/>
     </Stack>
   )
 }
