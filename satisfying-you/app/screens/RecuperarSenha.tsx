@@ -6,7 +6,7 @@ import { Input } from '@/components/Input'
 export default function Login() {
 
   function handleRecuperar() {
-
+    
   }
 
   return (

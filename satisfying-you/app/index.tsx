@@ -17,7 +17,7 @@ export default function Login() {
   }
 
   function handleRedefinir() {
-    router.push('/screensRecuperarSenha')
+    router.push('/screensRecuperarSenha') 
   }
 
   return (
