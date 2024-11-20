@@ -47,6 +47,8 @@ export default function Layout() {
       <Stack.Screen name='screens/EditSearch' options={{ title: 'Modificar Pesquisa' }}/>
       <Stack.Screen name='screens/Report' options={{ title: 'Relatório' }}/>
       <Stack.Screen name='screens/ActionSearch' options={{ title: 'Pesquisa' }}/>
+      <Stack.Screen name='screens/Coleta' options={{ headerShown: false }}/>
+      <Stack.Screen name='screens/Acknowledgements' options={{ headerShown: false }}/>
     </Stack>
   )
 }
