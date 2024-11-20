@@ -4,7 +4,7 @@ import { theme } from '@/constants/theme';
 import { MaterialIcons } from '@expo/vector-icons';
 
 
-export default function Coleta () {
+/*export default function Coleta () {
     return (
         <View style={styles.container}>
           <View style={styles.header}>
@@ -34,7 +34,7 @@ export default function Coleta () {
           </View>
         </View>
       );
-};
+};*/
 export default function Coleta() {
   const router = useRouter();
 

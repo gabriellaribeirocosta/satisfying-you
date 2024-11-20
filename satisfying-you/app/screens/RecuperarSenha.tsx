@@ -14,7 +14,7 @@ export default function Login() {
       <View style={styles.content}>
         <View style={styles.inputs}>
           <Input label={'E-mail'}></Input>
-          <Btn title={'Recuperar'} onPress={handleRecuperar}></Btn>
+          <Btn title={'Recuperar'} style={{marginTop: 20}} onPress={handleRecuperar}></Btn>
         </View>
       </View>
     </View>
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingRight: 200,
     paddingLeft: 200,
+    marginTop: 65,
   },
   title: {
     color: theme.colors.white,
