@@ -1,18 +1,23 @@
-import { View, StyleSheet, TouchableOpacity, Text, TextInput } from 'react-native'
+import { View, StyleSheet, TextInput, Text } from 'react-native'
 import { theme } from '@/constants/theme'
-import { useFonts } from 'expo-font'
-import AppLoading from 'expo-app-loading'
 
 interface InputProps {
-    label: string
-    secureText?: boolean
+    label: string;
+    secureText?: boolean;
+    value?: string; // O valor que será exibido no campo de entrada
+    onChangeText?: (text: string) => void; // Função que será chamada ao mudar o texto
 }
 
-export function Input({ label, secureText }:InputProps) {
+export function Input({ label, secureText, value, onChangeText }: InputProps) {
     return (
         <View>
             <Text style={styles.label}>{label}</Text>
-            <TextInput style={styles.input} secureTextEntry={secureText}></TextInput>
+            <TextInput
+                style={styles.input}
+                secureTextEntry={secureText}
+                value={value} 
+                onChangeText={onChangeText} 
+            />
         </View>
     )
 }

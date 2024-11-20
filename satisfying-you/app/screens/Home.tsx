@@ -3,11 +3,12 @@ import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
+import { useRouter } from "expo-router";
 
 export default function Home () {
-
+    const router = useRouter();
     function handleNovaPes(){
-
+        router.push('/screens/NewSearch');
     }
 
     return(
