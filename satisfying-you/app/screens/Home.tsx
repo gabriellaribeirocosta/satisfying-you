@@ -8,7 +8,7 @@ import { useRouter } from "expo-router";
 export default function Home () {
     const router = useRouter();
     function handleNovaPes(){
-        router.push('/screens/ActionSearch');
+        router.push('/screens/NewSearch');
     }
 
     return(
