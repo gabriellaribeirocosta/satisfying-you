@@ -80,7 +80,7 @@ export default function EditSearch() {
                         <Text style={styles.cameraTxt}>Câmera/Galeria de imagens</Text>
                     </View>
                 </View>
-                <View style={styles.button}>
+                <View>
                     <Btn title="CADASTRAR" onPress={handleSave} />
                 </View>                
             </View>
