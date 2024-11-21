@@ -35,7 +35,11 @@ export default function EditSearch() {
     }
 
     function handleApagar() {
+        setModalIsOpen(true)
+    }
 
+    function handleFecharModal(){
+        setModalIsOpen(false)
     }
 
     return (
@@ -86,7 +90,7 @@ export default function EditSearch() {
                     <Text style={styles.texto}>Apagar</Text>
                 </TouchableOpacity>
             </View>
-            {modalIsOpen && <Popup></Popup>}
+            {modalIsOpen && <Popup message={'Tem certeza de apagar essa pesquisa?'} onClose={handleFecharModal}></Popup>}
         </View>
     );
 }
@@ -128,11 +132,8 @@ const styles = StyleSheet.create({
         marginTop: 10, 
     }, 
     input: {
-        marginBottom: '2%',
+        marginBottom: '5%',
         position: 'relative',
-    },
-    button: {
-        marginTop: 15,  
     },
     bin: {
         justifyContent: 'center',

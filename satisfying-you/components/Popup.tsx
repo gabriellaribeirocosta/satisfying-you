@@ -6,60 +6,43 @@ import { theme } from "@/constants/theme";
 
   
 interface ConfirmationModalProps {
-    visible: boolean;
-    message: string; // Mensagem personalizada
+    message: string
+    onClose: () => void
 }
   
 export default function ConfirmationModal({
-    visible,
     message,
+    onClose
     }: ConfirmationModalProps) {
 
-    function onRequestClose() {
-
-    }
-
-    function onConfirm() {
-
-    }
-
-    function onCancel() {
-
-    }
-
     return (
-      <Modal
-        visible={visible}
-        transparent
-        animationType="slide"
-        onRequestClose={onRequestClose}
-      >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalText}>{message}</Text>
             <View style={styles.modalButtonContainer}>
               <TouchableOpacity
                 style={[styles.modalButton, styles.modalButtonSim]}
-                onPress={onConfirm}
+                onPress={onClose}
               >
                 <Text style={styles.modalButtonText}>SIM</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.modalButton, styles.modalButtonCancelar]}
-                onPress={onCancel}
+                onPress={onClose}
               >
                 <Text style={styles.modalButtonText}>CANCELAR</Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
-      </Modal>
     );
 }
 
 const styles = StyleSheet.create({
     modalOverlay: {
-      flex: 1,
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -75,7 +58,8 @@ const styles = StyleSheet.create({
       fontSize: 18,
       color: theme.colors.white,
       marginBottom: 20,
-      alignItems: 'center'
+      alignItems: 'center',
+      fontFamily: 'Averia'
     },
     modalButtonContainer: {
       flexDirection: 'row',
@@ -85,10 +69,12 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
       paddingHorizontal: 20,
       borderRadius: 5,
-      width: '35%'
+      width: '35%',
+      
     },
     modalButtonSim: {
-      backgroundColor: '#FF8C8C', // Cor do botão SIM
+      backgroundColor: '#FF8C8C',
+      
     },
     modalButtonCancelar: {
       backgroundColor: theme.colors.blue, // Cor do botão CANCELAR
@@ -96,7 +82,8 @@ const styles = StyleSheet.create({
     modalButtonText: {
       color: 'white',
       fontSize: 16,
-      textAlign: 'center'
+      textAlign: 'center',
+      fontFamily: 'Averia'
     },
   });
   
