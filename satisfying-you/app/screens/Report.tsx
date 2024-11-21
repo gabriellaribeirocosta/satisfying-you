@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { theme } from '@/constants/theme';
 
 export default function Report() {
-  const colors = ['#F1CE7E', '#6994FE', '#EA7288', '#5FCDA4', '#53D8D8']; // Cores diferentes
+  const colors = ['#F1CE7E', '#6994FE', '#EA7288', '#5FCDA4', '#53D8D8'];
 
   const legendItems = [
     { label: 'Excelente', color: colors[0] },
@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
     legenda: {
         flexDirection: 'column',
         alignItems: 'flex-start',
-        marginLeft: 10, // Adiciona espaço lateral se necessário
+        marginLeft: 10,
     },
     legendaItem: {
         flexDirection: 'row',
-        marginVertical: 5, // Reduz o espaçamento entre os itens
+        marginVertical: 5,
     },
     texto: {
         color: theme.colors.white,

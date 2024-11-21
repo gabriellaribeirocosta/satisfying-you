@@ -4,6 +4,7 @@ import { Btn } from '@/components/Btn'
 import { Input } from '@/components/Input'
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
+import { ErrorMessage } from '@/components/ErrorMessage';
 
 export default function SignUp() {
   const router = useRouter();
@@ -52,8 +53,7 @@ export default function SignUp() {
           />
         </View>
 
-        {/* Exibe a mensagem de erro, caso haja */}
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+        {error ? <ErrorMessage message={error}/> : null}
 
         <View style={styles.cadastrarBt}>
           <Btn title={'Cadastrar'} onPress={handleCadastrar}></Btn>
