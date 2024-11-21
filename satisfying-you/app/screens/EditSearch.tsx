@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
@@ -45,7 +45,7 @@ export default function EditSearch() {
                                 if (text.trim()) setErrorNome(''); 
                             }}
                         />
-                    {errorNome ? <Text style={[styles.errorText, {top: 40}]}>{errorNome}</Text> : null}
+                    {errorNome ? <Text style={[styles.errorText, {top: 35}]}>{errorNome}</Text> : null}
                 </View>
 
                 <View style={styles.input}>
@@ -60,26 +60,21 @@ export default function EditSearch() {
                             }}
                         />
                         <MaterialIcons name="calendar-month" size={30} color='gray' style={styles.icon} />
-                        {errorDate ? <Text style={[styles.errorText, {top: 40}]}>{errorDate}</Text> : null}
+                        {errorDate ? <Text style={[styles.errorText, {top: 35}]}>{errorDate}</Text> : null}
                     </View>
                 </View>
 
                 <View>
                     <Text style={styles.label}>Imagem</Text>
                     <View style={styles.img}>
-                        <MaterialIcons name="celebration" size={60} color="tomato" />
+                        <Text style={styles.cameraTxt}>Câmera/Galeria de imagens</Text>
                     </View>
                 </View>
                 <View style={styles.button}>
-                    <Btn title="SALVAR" onPress={handleSave} />
+                    <Btn title="CADASTRAR" onPress={handleSave} />
                 </View>                
             </View>
-            <View style={styles.binDiv}>
-                <TouchableOpacity style={styles.bin}>
-                    <MaterialIcons name="delete-outline" size={36} color="white" style={styles.binIcon}/>
-                    <Text style={styles.texto}>Apagar</Text>
-                </TouchableOpacity>
-            </View>
+            <View style={styles.binDiv}></View>
         </View>
     );
 }
@@ -93,7 +88,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         width: '100%',
-        alignItems: 'center'
+        justifyContent: 'flex-start',  
     },
     texto: {
         color: theme.colors.white,
@@ -106,7 +101,8 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         color: theme.colors.white,
         fontSize: 18,
-        fontFamily: 'Averia'
+        fontFamily: 'Averia',
+        marginBottom: 5, // Pequeno espaço entre o label e o input
     },
     img: {
         width: '50%',
@@ -114,17 +110,19 @@ const styles = StyleSheet.create({
         backgroundColor: 'white', 
         justifyContent: 'center',
         alignItems: 'center', 
+        marginBottom: 15,  // Adiciona um pequeno espaçamento abaixo da imagem
     },
     content: {
         width: '60%',
-        justifyContent: 'center'
+        justifyContent: 'flex-start', 
+        marginTop: 10, 
     }, 
     input: {
-        marginBottom: '4%',
+        marginBottom: 15,  // Menor distância entre os campos
         position: 'relative',
     },
     button: {
-        marginTop: '5%'
+        marginTop: 15,  // Menor margem para aproximar o botão
     },
     bin: {
         justifyContent: 'center',
@@ -144,14 +142,14 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         position: 'absolute',
         left: 0,
-        right: 0
+        right: 0,
     },
     inputCal: {
         backgroundColor: theme.colors.white,
         color: theme.colors.blue,
         fontFamily: 'Averia',
         fontSize: 14,
-        height: 40,
+        height: 30,
         paddingLeft: 20, 
         paddingRight: 40, 
     },
@@ -167,6 +165,14 @@ const styles = StyleSheet.create({
     labelCal: {
         color: theme.colors.white,
         fontSize: 14,
-        fontFamily: 'Averia'
+        fontFamily: 'Averia',
+        marginBottom: 5, // Pequeno espaço entre o label e o input
+    },
+    cameraTxt: {
+        fontFamily: 'Averia',
+        fontSize: 14,
+        color: theme.colors.gray,
+        textAlign: 'center',
+        justifyContent: 'center'
     }
 });
