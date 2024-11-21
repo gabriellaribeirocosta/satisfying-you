@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
@@ -97,10 +97,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         width: '100%',
-
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: -60
+        marginTop: -70
     },
     texto: {
         color: theme.colors.white,

@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.purple,
     flex: 1,
-    marginTop: -45,
     paddingBottom: 10,
     width: '100%'
   },
