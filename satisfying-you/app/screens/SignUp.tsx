@@ -11,7 +11,7 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confSenha, setConfSenha] = useState('');
-  const [error, setError] = useState('');  
+  const [error, setError] = useState(''); 
 
   const handleCadastrar = () => {
     // Verificação se todos os campos foram preenchidos

@@ -5,12 +5,27 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { Btn } from '@/components/Btn'
 import { Input } from '@/components/Input'
 import { ErrorMessage } from '@/components/ErrorMessage'
+import { useState } from 'react'
 
 export default function Login() {
-  const router = useRouter();
+  const [email, setEmail] = useState<string>('')
+  const [senha, setSenha] = useState<string>('')
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const router = useRouter()
+
+  function validaEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
   
   function handleEntrar() {
-    router.push('/Drawer')
+     if(!email || !senha) {
+      setErrorMessage('Preencha todos os campos')
+     } else if(email && !validaEmail(email)) {
+      setErrorMessage('Insira um email válido')
+     } else {
+      router.push('/Drawer')
+     }
   }
 
   function handleRegistro() {
@@ -29,11 +44,11 @@ export default function Login() {
       </View>
       <View style={styles.content}>
         <View style={styles.inputs}>
-          <Input label={'E-mail'}></Input>
-          <Input label={'Senha'} secureText={true}></Input>
+          <Input label={'E-mail'} onChangeText={setEmail} value={email}></Input>
+          <Input label={'Senha'} onChangeText={setSenha} secureText={true} value={senha}></Input>
         </View>
         <View style={styles.messageAndButton}>
-          <ErrorMessage message={'E-mail e/ou senha inválidos.'}></ErrorMessage>
+          {errorMessage && <ErrorMessage message={errorMessage}></ErrorMessage>}
           <Btn title={'Entrar'} onPress={handleEntrar}></Btn>
         </View>
         <Btn title={'Criar minha conta'} onPress={handleRegistro} style={styles.registro}></Btn>
