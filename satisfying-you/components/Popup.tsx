@@ -50,26 +50,25 @@ const styles = StyleSheet.create({
     modalContent: {
       backgroundColor: theme.colors.darkPurple,
       padding: 20,
-      borderRadius: 10,
       alignItems: 'center',
-      width: '50%',
+      width: '35%',
     },
     modalText: {
-      fontSize: 18,
+      fontSize: 16,
       color: theme.colors.white,
       marginBottom: 20,
       alignItems: 'center',
-      fontFamily: 'Averia'
+      fontFamily: 'Averia',
+      textAlign: 'center'
     },
     modalButtonContainer: {
       flexDirection: 'row',
-      gap: 20, 
+      gap: 10, 
     },
     modalButton: {
       paddingVertical: 10,
       paddingHorizontal: 20,
-      borderRadius: 5,
-      width: '35%',
+      width: 120,
       
     },
     modalButtonSim: {

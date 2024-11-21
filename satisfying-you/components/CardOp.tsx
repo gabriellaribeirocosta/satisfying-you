@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 interface Props {
     onPress: ()=> void
-    icon: string
+    icon: React.ComponentProps<typeof MaterialCommunityIcons>['name']
     text: string
 };
 
