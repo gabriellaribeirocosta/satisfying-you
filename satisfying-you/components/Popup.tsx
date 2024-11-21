@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
       backgroundColor: theme.colors.darkPurple,
       padding: 20,
       alignItems: 'center',
-      width: '35%',
+      width: '45%',
     },
     modalText: {
       fontSize: 16,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     modalButton: {
       paddingVertical: 10,
       paddingHorizontal: 20,
-      width: 120,
+      width: '50%',
       
     },
     modalButtonSim: {
