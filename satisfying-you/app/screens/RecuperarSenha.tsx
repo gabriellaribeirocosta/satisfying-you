@@ -26,8 +26,10 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.purple,
     flex: 1,
     paddingTop: 20,
-    paddingBottom: 20,
-    width: '100%'
+    paddingBottom: '15%',
+    width: '100%',
+    height: '80%',
+    justifyContent: 'center'
   },
   content:{
     width: '100%',
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Averia'
   },
   inputs: {
-    gap: 20,
-    marginTop: 10
+    gap: 50,
+    marginTop: 10,
   }
 })

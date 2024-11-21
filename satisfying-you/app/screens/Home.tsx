@@ -13,36 +13,36 @@ export default function Home () {
 
     return(
         <View style={styles.container}>
-            <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: '#f2f2f2', paddingHorizontal: 10, marginHorizontal: 10, marginBottom: 10, marginTop: 5, borderRadius: 2}}>
-                <MaterialIcons name="search" size={24} color="#ccc" />
+            <View style={{height: '12%', flexDirection: 'row', alignItems: 'center', backgroundColor: '#f2f2f2', paddingHorizontal: 10, marginHorizontal: 10, marginBottom: 10, marginTop: 5, borderRadius: 2}}>
+                <MaterialIcons name="search" size={20} color="#ccc" />
                 <TextInput style={styles.search} placeholder="Insira o termo de busca..."/>
             </View>
             <View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <View style={styles.block}>
                     <MaterialIcons name="laptop" size={50} color="#362828" />
-                    <Text>SECOMP 2023</Text>
-                    <Text>10/10/2023</Text>
+                    <Text style={styles.text}>SECOMP 2023</Text>
+                    <Text style={styles.date}>10/10/2023</Text>
                 </View>
                 <View style={styles.block}>
                     <FontAwesome name="users" size={50} color="black" />
-                    <Text>UBUNTU 2022</Text>
-                    <Text>05/06/2022</Text>
+                    <Text style={styles.text}>UBUNTU 2022</Text>
+                    <Text style={styles.date}>05/06/2022</Text>
                 </View>
                 <View style={styles.block}>
                     <FontAwesome name="female" size={50} color="red" />
-                    <Text>MENINAS CPU</Text>
-                    <Text>01/04/2022</Text>
+                    <Text style={styles.text}>MENINAS CPU</Text>
+                    <Text style={styles.date}>01/04/2022</Text>
                 </View>
                 <View style={styles.block}>
                     <MaterialIcons name="book" size={50} color="#404267" />
-                    <Text>FECHANDO PORTAS</Text>
-                    <Text>03/05/2023</Text>
+                    <Text style={styles.text}>FECHANDO PORTAS</Text>
+                    <Text style={styles.date}>03/05/2023</Text>
                 </View>
                 <View style={styles.block}>
                     <MaterialIcons name="lock" size={50} color="brown" />
-                    <Text style={styles.title}>SALA DE ESCAPE</Text>
-                    <Text>07/10/2023</Text>
+                    <Text style={styles.text}>SALA DE ESCAPE</Text>
+                    <Text style={styles.date}>07/10/2023</Text>
                 </View>
                 </ScrollView>
             </View>
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
         top: 0,
     },
     block: {
-        width: 200,
-        height: 200,
+        width: 160,
+        height: 160,
         backgroundColor: 'white',
         borderRadius: 10,
         padding: 10,
@@ -77,16 +77,26 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 3, 
     },
+    text: {
+      fontFamily: 'Averia',
+      color: theme.colors.blue,
+      fontSize: 20,
+      marginTop: 5,
+    },
+    date: {
+      fontFamily: 'Averia',
+      color: theme.colors.gray,
+      fontSize: 12,
+    },
     title: {
         color: 'blue',
         fontSize: 16,
     },
-    date: {
-        color: 'gray',
-        fontSize: 12,
-    },
     search: {
         flex: 1,
+        paddingTop: 4,
+        fontFamily: 'Averia',
+        paddingBottom: 4,
         fontSize: 16,
         color: '#333',
     },
