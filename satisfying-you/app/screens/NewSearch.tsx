@@ -4,6 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Input } from "@/components/Input";
 import { Btn } from "@/components/Btn";
 import { useState } from 'react';
+import { ErrorMessage } from '@/components/ErrorMessage';
 
 export default function EditSearch() {
     const [nome, setNome] = useState('');
@@ -47,7 +48,7 @@ export default function EditSearch() {
                                 if (text.trim()) setErrorNome(''); 
                             }}
                         />
-                    {errorNome ? <Text style={[styles.errorText, {top: 40}]}>{errorNome}</Text> : null}
+                    {errorNome ? <ErrorMessage message={errorNome}/> : null}
                 </View>
 
                 <View style={styles.input}>
@@ -62,7 +63,7 @@ export default function EditSearch() {
                             }}
                         />
                         <MaterialIcons name="calendar-month" size={30} color='gray' style={styles.icon} />
-                        {errorDate ? <Text style={[styles.errorText, {top: 40}]}>{errorDate}</Text> : null}
+                        {errorDate ? <ErrorMessage message={errorDate}/> : null}
                     </View>
                 </View>
 

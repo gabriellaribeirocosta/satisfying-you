@@ -1,12 +1,10 @@
 import React from 'react';
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import NewSearch from "./screens/NewSearch";
 import Home from "./screens/Home";
 import { MaterialIcons } from '@expo/vector-icons';
 import { theme } from "@/constants/theme";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from 'expo-router'; 
-import { DrawerItem } from '@react-navigation/drawer'; 
 
 const DrawerNavigator = createDrawerNavigator();
 
@@ -61,7 +59,7 @@ const CustomDrawerContent = () => {
 
             <View style={styles.footerContainer}>
                 <TouchableOpacity
-                    onPress={() => router.push('/screens/SignUp')}
+                    onPress={() => router.push('/')}
                     style={styles.footerItem}
                 >
                     <MaterialIcons
