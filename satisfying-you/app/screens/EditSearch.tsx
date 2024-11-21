@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         color: theme.colors.white,
         fontSize: 18,
         fontFamily: 'Averia',
-        marginBottom: 5, // Pequeno espaço entre o label e o input
+        marginBottom: 5, 
     },
     img: {
         width: '50%',
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white', 
         justifyContent: 'center',
         alignItems: 'center', 
-        marginBottom: 15,  // Adiciona um pequeno espaçamento abaixo da imagem
+        marginBottom: 15,  
     },
     content: {
         width: '60%',
@@ -118,11 +118,11 @@ const styles = StyleSheet.create({
         marginTop: 10, 
     }, 
     input: {
-        marginBottom: 15,  // Menor distância entre os campos
+        marginBottom: 15,  
         position: 'relative',
     },
     button: {
-        marginTop: 15,  // Menor margem para aproximar o botão
+        marginTop: 15,  
     },
     bin: {
         justifyContent: 'center',
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         color: theme.colors.white,
         fontSize: 14,
         fontFamily: 'Averia',
-        marginBottom: 5, // Pequeno espaço entre o label e o input
+        marginBottom: 5, 
     },
     cameraTxt: {
         fontFamily: 'Averia',
