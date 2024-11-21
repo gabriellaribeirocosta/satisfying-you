@@ -7,19 +7,26 @@ import { theme } from "@/constants/theme";
   
 interface ConfirmationModalProps {
     visible: boolean;
-    onConfirm: () => void;
-    onCancel: () => void;
-    onRequestClose?: () => void; // Opcional para Android
     message: string; // Mensagem personalizada
 }
   
 export default function ConfirmationModal({
     visible,
-    onConfirm,
-    onCancel,
-    onRequestClose,
     message,
-  }: ConfirmationModalProps) {
+    }: ConfirmationModalProps) {
+
+    function onRequestClose() {
+
+    }
+
+    function onConfirm() {
+
+    }
+
+    function onCancel() {
+
+    }
+
     return (
       <Modal
         visible={visible}
@@ -31,15 +38,12 @@ export default function ConfirmationModal({
           <View style={styles.modalContent}>
             <Text style={styles.modalText}>{message}</Text>
             <View style={styles.modalButtonContainer}>
-              {/* Botão SIM */}
               <TouchableOpacity
                 style={[styles.modalButton, styles.modalButtonSim]}
                 onPress={onConfirm}
               >
                 <Text style={styles.modalButtonText}>SIM</Text>
               </TouchableOpacity>
-  
-              {/* Botão CANCELAR */}
               <TouchableOpacity
                 style={[styles.modalButton, styles.modalButtonCancelar]}
                 onPress={onCancel}

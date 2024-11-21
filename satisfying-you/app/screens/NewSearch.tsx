@@ -36,7 +36,6 @@ export default function EditSearch() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.div}></View>
             <View style={styles.content}>
                 <Text style={styles.labelCal}>Nome</Text>
                 <View style={styles.input}>
@@ -77,34 +76,23 @@ export default function EditSearch() {
                     <Btn title="CADASTRAR" onPress={handleSave} />
                 </View>                
             </View>
-            <View style={styles.binDiv}>
-            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    div: {
-        width: '20%'
-    },
     container: {
         backgroundColor: theme.colors.purple,
         flexDirection: 'row',
-        flex: 1,
         width: '100%',
-        alignItems: 'center'
-    },
-    texto: {
-        color: theme.colors.white,
-        fontSize: 20,
-        fontFamily: 'Averia',
-        textAlign: 'center',
-        margin: '2%'
+        height: '100%',
+        justifyContent: 'center',
+        marginTop: -25
     },
     label: {
         textAlign: 'left',
         color: theme.colors.white,
-        fontSize: 18,
+        fontSize: 14,
         fontFamily: 'Averia'
     },
     img: {
@@ -119,38 +107,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }, 
     input: {
-        marginBottom: '4%',
+        marginBottom: '2%',
         position: 'relative',
     },
     button: {
-        marginTop: '5%'
+        marginTop: '3%'
     },
     bin: {
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    binDiv: {
-        alignItems: 'flex-end',
-        width: '20%',
-        height: '100%',
-        padding: '2%',
-        justifyContent: 'flex-end'
-    },
-    errorText: {
-        color: theme.colors.red,
-        fontFamily: 'Averia',
-        fontSize: 14,
-        textAlign: 'left',
-        position: 'absolute',
-        left: 0,
-        right: 0
     },
     inputCal: {
         backgroundColor: theme.colors.white,
         color: theme.colors.blue,
         fontFamily: 'Averia',
         fontSize: 14,
-        height: 40,
+        height: 30,
         paddingLeft: 20, 
         paddingRight: 40, 
     },
@@ -159,7 +131,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         position: 'absolute',
-        top: '50%', 
+        top: 15, 
         right: 10, 
         transform: [{ translateY: -15 }], 
     },
