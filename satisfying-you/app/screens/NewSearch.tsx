@@ -1,10 +1,8 @@
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Input } from "@/components/Input";
 import { Btn } from "@/components/Btn";
 import { useState } from 'react';
-import { ErrorMessage } from '@/components/ErrorMessage';
 
 export default function EditSearch() {
     const [nome, setNome] = useState('');
@@ -31,7 +29,6 @@ export default function EditSearch() {
             setErrorNome('');
             setErrorDate('');
         }
-
     };
 
     return (
@@ -47,7 +44,7 @@ export default function EditSearch() {
                                 if (text.trim()) setErrorNome(''); 
                             }}
                         />
-                    {errorNome ? <ErrorMessage message={errorNome}/> : null}
+                    {errorNome ? <Text style={[styles.errorText, {top: 35}]}>{errorNome}</Text> : null}
                 </View>
 
                 <View style={styles.input}>
@@ -62,7 +59,7 @@ export default function EditSearch() {
                             }}
                         />
                         <MaterialIcons name="calendar-month" size={30} color='gray' style={styles.icon} />
-                        {errorDate ? <ErrorMessage message={errorDate}/> : null}
+                        {errorDate ? <Text style={[styles.errorText, {top: 35}]}>{errorDate}</Text> : null}
                     </View>
                 </View>
 
@@ -104,7 +101,8 @@ const styles = StyleSheet.create({
     },
     content: {
         width: '60%',
-        justifyContent: 'center'
+        justifyContent: 'flex-start', 
+        marginTop: 10,  
     }, 
     input: {
         marginBottom: '2%',

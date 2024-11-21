@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
@@ -51,7 +51,7 @@ export default function EditSearch() {
                                 if (text.trim()) setErrorNome(''); 
                             }}
                         />
-                    {errorNome ? <ErrorMessage message={errorNome}/> : null}
+                    {errorNome ? <Text style={[styles.errorText, {top: 35}]}>{errorNome}</Text> : null}
                 </View>
 
                 <View style={styles.input}>
@@ -66,18 +66,18 @@ export default function EditSearch() {
                             }}
                         />
                         <MaterialIcons name="calendar-month" size={30} color='gray' style={styles.icon} />
-                        {errorDate ? <ErrorMessage message={errorDate}/> : null}
+                        {errorDate ? <Text style={[styles.errorText, {top: 35}]}>{errorDate}</Text> : null}
                     </View>
                 </View>
 
                 <View>
                     <Text style={styles.label}>Imagem</Text>
                     <View style={styles.img}>
-                        <MaterialIcons name="celebration" size={60} color="tomato" />
+                        <Text style={styles.cameraTxt}>Câmera/Galeria de imagens</Text>
                     </View>
                 </View>
                 <View style={styles.button}>
-                    <Btn title="SALVAR" onPress={handleSave} />
+                    <Btn title="CADASTRAR" onPress={handleSave} />
                 </View>                
             </View>
             <View style={styles.binDiv}>
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         width: '100%',
+
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: -60
@@ -120,17 +121,19 @@ const styles = StyleSheet.create({
         backgroundColor: 'white', 
         justifyContent: 'center',
         alignItems: 'center', 
+        marginBottom: 15,  
     },
     content: {
         width: '60%',
-        justifyContent: 'center'
+        justifyContent: 'flex-start', 
+        marginTop: 10, 
     }, 
     input: {
         marginBottom: '2%',
         position: 'relative',
     },
     button: {
-        marginTop: '5%'
+        marginTop: 15,  
     },
     bin: {
         justifyContent: 'center',
@@ -149,14 +152,14 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         position: 'absolute',
         left: 0,
-        right: 0
+        right: 0,
     },
     inputCal: {
         backgroundColor: theme.colors.white,
         color: theme.colors.blue,
         fontFamily: 'Averia',
         fontSize: 14,
-        height: 40,
+        height: 30,
         paddingLeft: 20, 
         paddingRight: 40, 
     },
@@ -172,6 +175,14 @@ const styles = StyleSheet.create({
     labelCal: {
         color: theme.colors.white,
         fontSize: 14,
-        fontFamily: 'Averia'
+        fontFamily: 'Averia',
+        marginBottom: 5, 
+    },
+    cameraTxt: {
+        fontFamily: 'Averia',
+        fontSize: 14,
+        color: theme.colors.gray,
+        textAlign: 'center',
+        justifyContent: 'center'
     }
 });

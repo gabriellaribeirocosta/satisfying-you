@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { theme } from '@/constants/theme';
 
 export default function Report() {
-  const colors = ['#F1CE7E', '#6994FE', '#EA7288', '#5FCDA4', '#53D8D8'];
+  const colors = ['#F1CE7E', '#6994FE', '#EA7288', '#5FCDA4', '#53D8D8']; 
 
   const legendItems = [
     { label: 'Excelente', color: colors[0] },
@@ -17,7 +17,7 @@ export default function Report() {
         <View style={styles.image}>  
             <Image
                 source={require('../../public/images/piechart.png')}
-                style={{ width: 330, height: 330 }}
+                style={{ width: 270, height: 270 }}
             />
         </View>  
         <View style={styles.legenda}>
@@ -39,17 +39,17 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         paddingTop: 10, 
-        paddingBottom: 10, 
+        paddingBottom: 70, 
         width: '100%',
     },
     legenda: {
         flexDirection: 'column',
         alignItems: 'flex-start',
-        marginLeft: 10,
+        marginLeft: 10, 
     },
     legendaItem: {
         flexDirection: 'row',
-        marginVertical: 5,
+        marginVertical: 5, 
     },
     texto: {
         color: theme.colors.white,

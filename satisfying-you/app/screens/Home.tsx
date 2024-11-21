@@ -49,14 +49,6 @@ const styles = StyleSheet.create({
         margin: 0,
         top: 0,
     },
-    title: {
-        color: 'blue',
-        fontSize: 16,
-    },
-    date: {
-        color: 'gray',
-        fontSize: 12,
-    },
     search: {
         fontFamily: 'Averia',
         fontSize: 16,
