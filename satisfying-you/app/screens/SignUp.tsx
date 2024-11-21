@@ -27,7 +27,7 @@ export default function SignUp() {
     }
 
     setError('');
-    router.push('screens/Home');
+    router.push('/screens/Home');
   }
 
   return (
