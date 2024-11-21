@@ -1,9 +1,9 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { theme } from '@/constants/theme'
 import { Btn } from '@/components/Btn'
 import { Input } from '@/components/Input'
 
-export default function Login() {
+export default function RecuperarSenha() {
 
   function handleRecuperar() {
     
@@ -11,12 +11,10 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
         <View style={styles.inputs}>
           <Input label={'E-mail'}></Input>
           <Btn title={'Recuperar'} onPress={handleRecuperar}></Btn>
         </View>
-      </View>
     </View>
   )
 }
@@ -25,16 +23,14 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.purple,
     flex: 1,
-    paddingTop: 20,
-    paddingBottom: '15%',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
-    height: '80%',
-    justifyContent: 'center'
+    height: '100%',
+    marginTop: -60
   },
   content:{
-    width: '100%',
-    paddingRight: 200,
-    paddingLeft: 200,
+    
   },
   title: {
     color: theme.colors.white,
@@ -42,7 +38,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Averia'
   },
   inputs: {
-    gap: 50,
-    marginTop: 10,
+    width: '60%',
+    gap: 20
   }
 })

@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.purple,
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 10,
     paddingBottom: 10,
     width: '100%'
   },
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   cadastrarBt: {
-    marginTop: '10%'
+    marginTop: 20
   },
   errorText: {
     color: theme.colors.red,

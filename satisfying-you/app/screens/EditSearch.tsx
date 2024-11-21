@@ -3,12 +3,15 @@ import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
 import { useState } from 'react';
+import { ErrorMessage } from '@/components/ErrorMessage';
+import Popup from '@/components/Popup';
 
 export default function EditSearch() {
     const [nome, setNome] = useState('');
     const [date, setDate] = useState('');
     const [errorNome, setErrorNome] = useState('');
     const [errorDate, setErrorDate] = useState('');
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const handleSave = () => {
         let valid = true;
@@ -29,11 +32,14 @@ export default function EditSearch() {
             setErrorNome('');
             setErrorDate('');
         }
-    };
+    }
+
+    function handleApagar() {
+
+    }
 
     return (
         <View style={styles.container}>
-            <View style={styles.div}></View>
             <View style={styles.content}>
                 <Text style={styles.labelCal}>Nome</Text>
                 <View style={styles.input}>
@@ -74,21 +80,27 @@ export default function EditSearch() {
                     <Btn title="CADASTRAR" onPress={handleSave} />
                 </View>                
             </View>
-            <View style={styles.binDiv}></View>
+            <View style={styles.binDiv}>
+                <TouchableOpacity style={styles.bin} onPress={handleApagar}>
+                    <MaterialIcons name="delete-outline" size={36} color="white"/>
+                    <Text style={styles.texto}>Apagar</Text>
+                </TouchableOpacity>
+            </View>
+            {modalIsOpen && <Popup></Popup>}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    div: {
-        width: '20%'
-    },
     container: {
         backgroundColor: theme.colors.purple,
         flexDirection: 'row',
         flex: 1,
         width: '100%',
-        justifyContent: 'flex-start',  
+
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: -60
     },
     texto: {
         color: theme.colors.white,
@@ -100,9 +112,8 @@ const styles = StyleSheet.create({
     label: {
         textAlign: 'left',
         color: theme.colors.white,
-        fontSize: 18,
-        fontFamily: 'Averia',
-        marginBottom: 5, 
+        fontSize: 16,
+        fontFamily: 'Averia'
     },
     img: {
         width: '50%',
@@ -118,7 +129,7 @@ const styles = StyleSheet.create({
         marginTop: 10, 
     }, 
     input: {
-        marginBottom: 15,  
+        marginBottom: '2%',
         position: 'relative',
     },
     button: {
@@ -129,11 +140,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     binDiv: {
-        alignItems: 'flex-end',
-        width: '20%',
-        height: '100%',
-        padding: '2%',
-        justifyContent: 'flex-end'
+        position: 'absolute',
+        bottom: 70,
+        right: 10,
+        width: 70
     },
     errorText: {
         color: theme.colors.red,
