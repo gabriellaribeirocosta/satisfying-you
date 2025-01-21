@@ -5,6 +5,8 @@ import { Input } from '@/components/Input'
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { ErrorMessage } from '@/components/ErrorMessage';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth_mod } from '../../firebase/config'
 
 export default function SignUp() {
   const router = useRouter();
@@ -26,8 +28,15 @@ export default function SignUp() {
       return; 
     }
 
-    setError('');
-    router.push('/screens/Home');
+    createUserWithEmailAndPassword(auth_mod, email, senha)
+    .then((userCredential) => {
+      setError('');
+      console.log("usuario criado com sucesso: " + JSON.stringify(userCredential))
+        router.push('/screens/Home');
+      })
+      .catch((error) => {
+        console.error('Erro ao criar usuário: ' + error)
+      });
   }
 
   return (

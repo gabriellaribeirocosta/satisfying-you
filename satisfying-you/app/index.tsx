@@ -6,6 +6,8 @@ import { Btn } from '@/components/Btn'
 import { Input } from '@/components/Input'
 import { ErrorMessage } from '@/components/ErrorMessage'
 import { useState } from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth_mod } from '../firebase/config'
 
 export default function Login() {
   const [email, setEmail] = useState<string>('')
@@ -18,14 +20,23 @@ export default function Login() {
     return emailRegex.test(email)
   }
   
-  function handleEntrar() {
-     if(!email || !senha) {
-      setErrorMessage('Preencha todos os campos')
-     } else if(email && !validaEmail(email)) {
-      setErrorMessage('Insira um email válido')
-     } else {
-      router.push('/Drawer')
-     }
+  const handleEntrar = () => {
+    signInWithEmailAndPassword(auth_mod, email, senha)
+      .then ((userLogged) => {
+        console.log('usuário autenticado com sucesso: ' + userLogged)
+        router.push('/Drawer')
+      })
+      .catch((error) => {
+        if(!email || !senha) {
+         setErrorMessage('Preencha todos os campos')
+        } else if(email && !validaEmail(email)) {
+         setErrorMessage('Insira um email válido')
+        } else {
+          setErrorMessage('E-mail e/ou senha estão incorretos')
+          console.log('erro ao autenticar usuario: ' + error)
+        }
+      })
+
   }
 
   function handleRegistro() {
