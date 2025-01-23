@@ -35,7 +35,12 @@ export default function SignUp() {
         router.push('/screens/Home');
       })
       .catch((error) => {
-        console.error('Erro ao criar usuário: ' + error)
+        if(error.code === 'auth/email-already-in-use'){
+          setError('E-mail já existe')
+        }
+        if(error.code === 'auth/invalid-email'){
+          setError('E-mail inválido')
+        }
       });
   }
 

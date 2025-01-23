@@ -12,7 +12,7 @@ import { auth_mod } from '../firebase/config'
 export default function Login() {
   const [email, setEmail] = useState<string>('')
   const [senha, setSenha] = useState<string>('')
-  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [error, setError] = useState<string>('')
   const router = useRouter()
 
   function validaEmail(email: string): boolean {
@@ -23,17 +23,15 @@ export default function Login() {
   const handleEntrar = () => {
     signInWithEmailAndPassword(auth_mod, email, senha)
       .then ((userLogged) => {
-        console.log('usuário autenticado com sucesso: ' + userLogged)
         router.push('/Drawer')
       })
       .catch((error) => {
         if(!email || !senha) {
-         setErrorMessage('Preencha todos os campos')
+         setError('Preencha todos os campos')
         } else if(email && !validaEmail(email)) {
-         setErrorMessage('Insira um email válido')
+         setError('Insira um email válido')
         } else {
-          setErrorMessage('E-mail e/ou senha estão incorretos')
-          console.log('erro ao autenticar usuario: ' + error)
+          setError('E-mail e/ou senha estão incorretos')
         }
       })
 
@@ -59,7 +57,7 @@ export default function Login() {
           <Input label={'Senha'} onChangeText={setSenha} secureText={true} value={senha}></Input>
         </View>
         <View style={styles.messageAndButton}>
-          {errorMessage && <ErrorMessage message={errorMessage}></ErrorMessage>}
+          {error && <ErrorMessage message={error}></ErrorMessage>}
           <Btn title={'Entrar'} onPress={handleEntrar}></Btn>
         </View>
         <Btn title={'Criar minha conta'} onPress={handleRegistro} style={styles.registro}></Btn>

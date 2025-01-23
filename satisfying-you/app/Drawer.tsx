@@ -5,6 +5,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { theme } from "@/constants/theme";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from 'expo-router'; 
+import { auth_mod } from '../firebase/config'
+import { signOut } from 'firebase/auth'
 
 const DrawerNavigator = createDrawerNavigator();
 
@@ -35,6 +37,16 @@ export default function Drawer() {
 
 const CustomDrawerContent = () => {
     const router = useRouter();
+    
+    const handleSair = async () => {
+        try {
+            await signOut(auth_mod)
+            router.replace('/')
+        }catch(error){
+            console.log(error)
+        }
+    }
+
     return (
         <View style={styles.drawerContainer}>
             <View style={styles.emailContainer}>
@@ -59,7 +71,7 @@ const CustomDrawerContent = () => {
 
             <View style={styles.footerContainer}>
                 <TouchableOpacity
-                    onPress={() => router.push('/')}
+                    onPress={handleSair}
                     style={styles.footerItem}
                 >
                     <MaterialIcons
