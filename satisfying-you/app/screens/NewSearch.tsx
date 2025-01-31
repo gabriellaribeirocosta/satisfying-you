@@ -1,15 +1,44 @@
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Image, Pressable } from 'react-native';
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ErrorMessage } from '@/components/ErrorMessage';
+import * as ImagePicker from 'expo-image-picker';
+import * as ImageManipulator from 'expo-image-manipulator';
+import { initializeFirestore, collection, addDoc, updateDoc, deleteDoc, doc, query, onSnapshot } from 'firebase/firestore'
+import { app } from '../../firebase/config'
 
 export default function EditSearch() {
     const [nome, setNome] = useState('');
     const [date, setDate] = useState('');
     const [errorNome, setErrorNome] = useState('');
     const [errorDate, setErrorDate] = useState('');
+    const [imagem, setImagem] = useState();
+    const [imagemBase64, setImagemBase64] = useState();
+    const db = initializeFirestore(app, {experimentalForceLongPolling: true});
+    const searchCollection = collection(db, "nova pesquisa");
+
+    const addPesquisa = async () => {
+        if (!imagemBase64) {
+            console.error("Erro: Nenhuma imagem foi selecionada.");
+            return;
+        }
+    
+        const docUser = {
+            nome: nome,
+            data: date,
+            image: imagemBase64 // A rmazena a string Base64 no Firestore
+        };
+    
+        try {
+            const docRef = await addDoc(searchCollection, docUser);
+            console.log("Novo documento inserido com sucesso:", docRef.id);
+        } catch (erro) {
+            console.error("Erro ao salvar documento:", erro);
+        }
+    };
+    
 
     const handleSave = () => {
         let valid = true;
@@ -26,11 +55,53 @@ export default function EditSearch() {
         } else {
             setErrorDate('');
         }
+        if (imagem === undefined) {
+            setErrorNome('Selecione um imagem');
+            valid = false;
+        }
         if (valid) {
             setErrorNome('');
             setErrorDate('');
+            addPesquisa();
+        }
+
+    };
+
+    const pickImage = async () => {
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (permissionResult.granted === false) {
+            alert("Conceda a permissão para acessar a galeria!");
+            return;
+        }
+    
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+        console.log(result);
+        if (!result.canceled && result.assets.length > 0) {
+            const uri = result.assets[0]?.uri;
+            await resizeAndConvertImage(uri);
         }
     };
+
+    const resizeAndConvertImage = async (uri) => {
+        try {
+            const manipResult = await ImageManipulator.manipulateAsync(
+                uri,
+                [{ resize: { width: 700, height: 700 } }],
+                { compress: 1, format: ImageManipulator.SaveFormat.JPEG, base64: true }
+            );
+            
+            setImagem(manipResult.uri);         // Salva a URI para exibição
+            setImagemBase64(manipResult.base64); // Salva a string Base64
+        } catch (error) {
+            console.error("Error resizing image:", error);
+        }
+    };
+    
 
     return (
         <View style={styles.container}>
@@ -38,13 +109,13 @@ export default function EditSearch() {
                 <Text style={styles.labelCal}>Nome</Text>
                 <View style={styles.input}>
                     <TextInput
-                            style={styles.inputCal}
-                            value={nome}
-                            onChangeText={(text) => {
-                                setNome(text);
-                                if (text.trim()) setErrorNome(''); 
-                            }}
-                        />
+                        style={styles.inputCal}
+                        value={nome}
+                        onChangeText={(text) => {
+                            setNome(text);
+                            if (text.trim()) setErrorNome(''); 
+                        }}
+                    />
                     {errorNome ? <ErrorMessage message={errorNome}/> : null}
                 </View>
 
@@ -66,9 +137,16 @@ export default function EditSearch() {
 
                 <View>
                     <Text style={styles.label}>Imagem</Text>
-                    <View style={styles.img}>
-                        <Text style={styles.cameraTxt}>Câmera/Galeria de imagens</Text>
-                    </View>
+                    <Pressable 
+                        style={styles.img}
+                        onPress={pickImage}
+                    >
+                        {
+                            imagem === undefined
+                            ? <Text style={styles.cameraTxt}>Câmera/Galeria de imagens</Text>
+                            : <Image source={{uri: imagem}} style={{ height: 100, width: 100}}/>
+                        }
+                    </Pressable>
                 </View>
                 <View style={styles.button}>
                     <Btn title="CADASTRAR" onPress={handleSave} />
@@ -110,10 +188,6 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: '5%'
-    },
-    bin: {
-        justifyContent: 'center',
-        alignItems: 'center'
     },
     inputCal: {
         backgroundColor: theme.colors.white,
