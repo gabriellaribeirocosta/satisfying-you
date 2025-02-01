@@ -1,13 +1,20 @@
-import { StyleSheet, View, Text, ScrollView, TextInput} from "react-native";
+import { StyleSheet, View, Text, ScrollView, TextInput, FlatList, TouchableOpacity} from "react-native";
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
 import { useRouter } from "expo-router";
 import { Card } from "@/components/Card";
+import { query, onSnapshot, initializeFirestore, collection } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { app } from '../../firebase/config'
 
 export default function Home () {
     const router = useRouter();
+    const db = initializeFirestore(app, {experimentalForceLongPolling: true});
+    const searchCollection = collection(db, "nova pesquisa");
+    const [listaPesquisas, setListaPesquisas] = useState([])
+
     function handleNovaPes(){
         router.push('/screens/NewSearch');
     }
@@ -15,6 +22,37 @@ export default function Home () {
     function handleAcoes() {
         router.push('/screens/ActionSearch')
     }
+
+    useEffect( () => {
+        const q = query(searchCollection)
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const search = [];
+            snapshot.forEach((doc) => {
+                search.push({
+                    id: doc.id,
+                    ...doc.data()
+                })
+            })
+
+            setListaPesquisas(search)
+        })
+
+        return () => unsubscribe();
+    }, [])
+
+    const itemPesquisa = ({item}) => {
+        return(
+            <Card 
+                nome={item.nome}
+                data={item.data}
+                onPress={() => {changePesquisa(item.id)}}
+                icon={item.imagemBase64}
+            />
+            
+            
+        )
+    }
+
 
     return(
         <View style={styles.container}>
@@ -31,8 +69,18 @@ export default function Home () {
                         <Card nome={'Secomp 2023'} data={'10/10/2023'} onPress={handleAcoes} icon={'devices'}></Card>
                         <Card nome={'Ubuntu 2022'} data={'05/06/2022'} onPress={handleAcoes} icon={'groups'}></Card>
                         <Card nome={'Meninas CPU'} data={'01/04/2022'} onPress={handleAcoes} icon={'woman'} ></Card>
+                        {listaPesquisas.map((item) => (
+                            <Card 
+                                key={item.id} 
+                                nome={item.nome} 
+                                data={item.data} 
+                                onPress={handleAcoes} 
+                                image={item.imagemBase64} 
+                            />
+                        ))}
                     </View>
                 </ScrollView>
+                
             </View>
             <View>
                 <Btn title={"Nova Pesquisa"} style={{marginTop: 20, width: '90%', marginLeft: 40 }} onPress={handleNovaPes}/>
