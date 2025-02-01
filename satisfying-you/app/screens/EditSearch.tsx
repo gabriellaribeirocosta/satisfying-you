@@ -5,10 +5,12 @@ import { Btn } from "@/components/Btn";
 import { useState } from 'react';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import Popup from '@/components/Popup';
+import { updateDoc, doc, deleteDoc } from 'firebase/firestore';
 
 export default function EditSearch() {
     const [nome, setNome] = useState('');
     const [date, setDate] = useState('');
+    const [imagemBase64, setImagemBase64] = useState('');
     const [errorNome, setErrorNome] = useState('');
     const [errorDate, setErrorDate] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -32,15 +34,61 @@ export default function EditSearch() {
             setErrorNome('');
             setErrorDate('');
         }
+        if (valid){
+            changePesquisa(idPesquisa, nome, date, imagemBase64);
+            alert("Pesquisa atualizada com sucesso!");
+        }
     }
+
+    const changePesquisa = async (id, novoNome, novaData, novaImagem) => {
+        if (!id) {
+            console.error("ID da pesquisa não encontrado!");
+            return;
+        }
+
+        const pesRef = doc(db, "pesquisa", id);
+
+        try {
+            await updateDoc(pesRef, {
+                nome: novoNome,
+                ano: novaData,
+                image: novaImagem
+            });
+            alert("Pesquisa atualizada com sucesso!");
+        } catch (error) {
+            console.error("Erro ao atualizar a pesquisa:", error);
+        }
+    };
+
+    const deletePesquisa = async (id) => {
+        if (!id) {
+            console.error("ID da pesquisa não encontrado!");
+            return;
+        }
+
+        try {
+            await deleteDoc(doc(db, "pesquisa", id));
+            alert("Pesquisa apagada com sucesso!");
+            navigation.goBack(); // Volta para a tela anterior após deletar
+        } catch (error) {
+            console.error("Erro ao apagar a pesquisa:", error);
+        }
+    };
 
     function handleApagar() {
         setModalIsOpen(true)
     }
 
+    function confirmarApagar() {
+        deletePesquisa(id);
+        setModalIsOpen(false);
+    }
+
     function handleFecharModal(){
         setModalIsOpen(false)
     }
+
+    
 
     return (
         <View style={styles.container}>
@@ -90,7 +138,7 @@ export default function EditSearch() {
                     <Text style={styles.texto}>Apagar</Text>
                 </TouchableOpacity>
             </View>
-            {modalIsOpen && <Popup message={'Tem certeza de apagar essa pesquisa?'} onClose={handleFecharModal}></Popup>}
+            {modalIsOpen && <Popup message={'Tem certeza de apagar essa pesquisa?'} onClose={handleFecharModal} onConfirm={confirmarApagar}/>}
         </View>
     );
 }
