@@ -144,7 +144,7 @@ export default function EditSearch() {
                         {
                             imagem === undefined
                             ? <Text style={styles.cameraTxt}>Câmera/Galeria de imagens</Text>
-                            : <Image source={{uri: imagem}} style={{ height: 100, width: 100}}/>
+                            : <Image source={{uri: imagem}} style={{ height: '100%', width: '100%'}} resizeMode='cover'/>
                         }
                     </Pressable>
                 </View>
