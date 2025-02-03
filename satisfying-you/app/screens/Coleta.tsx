@@ -38,7 +38,7 @@ export default function Coleta() {
         const data = docSnap.data(); // Obtém os dados do documento
         //console.log("Dados do documento:", data);
         setNome(data.nome || '');
-        console.log(nome)
+        //console.log(nome)
       }
     } catch (error) {
       console.error("Erro ao buscar o documento:", error);
@@ -54,11 +54,10 @@ export default function Coleta() {
   //Funcionou
   const coletaCollections = collection(db, "nova pesquisa/" + id + "/coletar")
 
-
-  const addColeta = () => {
+  const addColeta = (valor) => {
     
     addDoc(coletaCollections, {
-        pessimo: "Rodrigo"
+        nota: valor
     }).then((docRef) => {
         console.log("Novo documento inserido: " + JSON.stringify(docRef))
     }).catch((err) => {
@@ -74,23 +73,23 @@ export default function Coleta() {
         <Text style={styles.title}>O que você achou do {nome}</Text>
       </View>
       <View style={styles.content}>
-        <TouchableOpacity style={styles.icon} onPress={addColeta}>
+        <TouchableOpacity style={styles.icon} onPress={() => {addColeta(1)}}>
           <MaterialIcons name="sentiment-very-dissatisfied" size={75} color="red" />
           <Text style={styles.label}>Péssimo</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.icon} onPress={handleIconPress}>
+        <TouchableOpacity style={styles.icon} onPress={() => {addColeta(2)}}>
           <MaterialIcons name="sentiment-dissatisfied" size={75} color="tomato" />
           <Text style={styles.label}>Ruim</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.icon} onPress={handleIconPress}>
+        <TouchableOpacity style={styles.icon} onPress={() => {addColeta(3)}}>
           <MaterialIcons name="sentiment-neutral" size={75} color="yellow" />
           <Text style={styles.label}>Neutro</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.icon} onPress={handleIconPress}>
+        <TouchableOpacity style={styles.icon} onPress={() => {addColeta(4)}}>
           <MaterialIcons name="sentiment-satisfied" size={75} color="#2d9923" />
           <Text style={styles.label}>Bom</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.icon} onPress={handleIconPress}>
+        <TouchableOpacity style={styles.icon} onPress={() => {addColeta(5)}}>
           <MaterialIcons name="sentiment-very-satisfied" size={75} color="green" />
           <Text style={styles.label}>Excelente</Text>
         </TouchableOpacity>
