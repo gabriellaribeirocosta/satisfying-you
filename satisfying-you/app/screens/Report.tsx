@@ -18,8 +18,6 @@ export default function Report() {
     { label: 'Péssimo', color: colors[4] },
   ];
 
-  console.log("=====================================")
-
   const params = useLocalSearchParams();
   const { id } = params;
 
@@ -42,7 +40,45 @@ export default function Report() {
     })
   }, [])
 
-  console.log(valor)
+  //console.log(valor)
+
+  function contarNotas(avaliacoes) {
+    let pessimo = 0;
+    let ruim = 0;
+    let neutro = 0;
+    let bom = 0;
+    let excelente = 0;
+  
+    avaliacoes.forEach((avaliacao) => {
+      const nota = avaliacao.nota;
+  
+      switch (nota) {
+        case 1:
+          pessimo++;
+          break;
+        case 2:
+          ruim++;
+          break;
+        case 3:
+          neutro++;
+          break;
+        case 4:
+          bom++;
+          break;
+        case 5:
+          excelente++;
+          break;
+        default:
+          console.log('Nota inválida');
+          break;
+      }
+    });
+  
+    
+    return [pessimo, ruim, neutro, bom, excelente]
+  }
+
+  console.log(contarNotas(valor))
 
   return (
     <View style={styles.container}>
