@@ -1,11 +1,15 @@
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { theme } from '@/constants/theme';
 import { MaterialIcons } from '@expo/vector-icons';
-import { addDoc, collection, doc, initializeFirestore } from 'firebase/firestore';
-import { app, auth_mod } from '@/firebase/config';
+import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
+import { app, auth_mod, db } from '@/firebase/config';
+import { useEffect, useState } from 'react';
 
 export default function Coleta() {
+
+  const [ nome, setNome] = useState("")
+
   const router = useRouter();
 
   const handleIconPress = () => {
@@ -17,13 +21,38 @@ export default function Coleta() {
     }, 3000);
   };
 
-  const db = initializeFirestore(app, {experimentalForceLongPolling: true})
+  const params = useLocalSearchParams();
+  const { id } = params;
 
   const user = auth_mod.currentUser
   const uid = user.uid
 
+  async function fetchDocument(){
+
+    const docRef = doc(db, "nova pesquisa", id)      
+          
+    try {
+      const docSnap = await getDoc(docRef); // Aguarda a busca do documento
+      
+      if (docSnap.exists()) {
+        const data = docSnap.data(); // Obtém os dados do documento
+        //console.log("Dados do documento:", data);
+        setNome(data.nome || '');
+        console.log(nome)
+      }
+    } catch (error) {
+      console.error("Erro ao buscar o documento:", error);
+    }
+  }
+
+  useEffect(() => {
+    if (id) {
+      fetchDocument(id);
+    }
+  }, [id]);
+
   //Funcionou
-  const coletaCollections = collection(db, "nova pesquisa/1eFPPJ6avMo0jV2ikmml/coletar")
+  const coletaCollections = collection(db, "nova pesquisa/" + id + "/coletar")
 
 
   const addColeta = () => {
@@ -42,7 +71,7 @@ export default function Coleta() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>O que você achou do Carnaval 2024?</Text>
+        <Text style={styles.title}>O que você achou do {nome}</Text>
       </View>
       <View style={styles.content}>
         <TouchableOpacity style={styles.icon} onPress={addColeta}>
