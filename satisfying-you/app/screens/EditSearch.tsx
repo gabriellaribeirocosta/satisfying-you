@@ -5,9 +5,8 @@ import { Btn } from "@/components/Btn";
 import { useEffect, useState } from 'react';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import Popup from '@/components/Popup';
-import { updateDoc, doc, deleteDoc, collection, query, onSnapshot, getDoc } from 'firebase/firestore';
+import { updateDoc, doc, deleteDoc, getDoc } from 'firebase/firestore';
 import { useLocalSearchParams } from 'expo-router';
-import { useRoute } from '@react-navigation/native';
 import { db } from '@/firebase/config';
 
 export default function EditSearch() {
@@ -22,9 +21,9 @@ export default function EditSearch() {
     const { id } = params;
 
     async function fetchDocument(id) {
-      if (!id) return; // Se não houver ID, não faz nada
+      if (!id) return;
   
-      const docRef = doc(db, "nova pesquisa", id); // Cria a referência do documento corretamente
+      const docRef = doc(db, "nova pesquisa", id);
   
       try {
         const docSnap = await getDoc(docRef); // Aguarda a busca do documento
@@ -33,7 +32,6 @@ export default function EditSearch() {
           const data = docSnap.data(); // Obtém os dados do documento
           //console.log("Dados do documento:", data);
   
-          // Atualiza os estados com os dados do documento
           setNome(data.nome || '');
           setDate(data.data || '');
           setImagemBase64(data.image || '');
@@ -104,7 +102,7 @@ export default function EditSearch() {
         }
 
         try {
-            await deleteDoc(doc(db, "pesquisa", id));
+            await deleteDoc(doc(db, "nova pesquisa", id));
             alert("Pesquisa apagada com sucesso!");
             navigation.goBack(); // Volta para a tela anterior após deletar
         } catch (error) {
