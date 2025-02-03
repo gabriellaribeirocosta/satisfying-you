@@ -1,14 +1,19 @@
 import { StyleSheet, View } from 'react-native'
 import { theme } from '@/constants/theme'
 import { CardOp } from '@/components/CardOp';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 export default function ActionSearch() {
   const router = useRouter();
 
+  const params = useLocalSearchParams()
+  const {id} = params
+  console.log(id)
+
   const handlePress = (path:string) => {
     router.push(path);
   }
+  
 
   return (
     <View style={styles.container}>
