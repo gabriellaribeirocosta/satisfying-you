@@ -1,7 +1,13 @@
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { theme } from '@/constants/theme';
+import { useEffect, useState } from 'react';
+import { collection, doc, onSnapshot, query } from 'firebase/firestore';
+import { db } from '@/firebase/config';
+import { useLocalSearchParams } from 'expo-router';
 
 export default function Report() {
+  const [valor, setValor] = useState([])
+
   const colors = ['#F1CE7E', '#6994FE', '#EA7288', '#5FCDA4', '#53D8D8']; 
 
   const legendItems = [
@@ -11,6 +17,32 @@ export default function Report() {
     { label: 'Ruim', color: colors[3] },
     { label: 'Péssimo', color: colors[4] },
   ];
+
+  console.log("=====================================")
+
+  const params = useLocalSearchParams();
+  const { id } = params;
+
+  //const coletaDocRef = doc(db, "nova pesquisa", id)
+  const coletaCollection = collection(db, "nova pesquisa/" + id + "/coletar")
+  //console.log(coletaDocRef)
+  //console.log(coletaCollection)
+
+  useEffect(() => {
+    const q = query(coletaCollection)
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const valores = []
+      snapshot.forEach((doc) => {
+        valores.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      })
+      setValor(valores)
+    })
+  }, [])
+
+  console.log(valor)
 
   return (
     <View style={styles.container}>
