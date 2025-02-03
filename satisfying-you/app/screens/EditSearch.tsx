@@ -72,7 +72,7 @@ export default function EditSearch() {
             setErrorDate('');
         }
         if (valid){
-            changePesquisa(idPesquisa, nome, date, imagemBase64);
+            changePesquisa(id, nome, date, imagemBase64);
             alert("Pesquisa atualizada com sucesso!");
         }
     }
@@ -83,7 +83,7 @@ export default function EditSearch() {
             return;
         }
 
-        const pesRef = doc(db, "pesquisa", id);
+        const pesRef = doc(db, "nova pesquisa", id);
 
         try {
             await updateDoc(pesRef, {
