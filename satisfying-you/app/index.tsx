@@ -23,7 +23,7 @@ export default function Login() {
   const handleEntrar = () => {
     signInWithEmailAndPassword(auth_mod, email, senha)
       .then ((userLogged) => {
-        console.log('usuário autenticado com sucesso: ' + userLogged)
+        console.log('usuário autenticado com sucesso: ' + JSON.stringify(userLogged))
         router.push('/Drawer')
       })
       .catch((error) => {

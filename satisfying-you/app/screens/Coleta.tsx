@@ -2,6 +2,8 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { theme } from '@/constants/theme';
 import { MaterialIcons } from '@expo/vector-icons';
+import { initializeFirestore } from 'firebase/firestore';
+import { app, auth_mod } from '@/firebase/config';
 
 export default function Coleta() {
   const router = useRouter();
@@ -14,6 +16,16 @@ export default function Coleta() {
       router.replace('/screens/Coleta');
     }, 3000);
   };
+
+  const user = auth_mod.currentUser
+  
+  const db = initializeFirestore(app, {experimentalForceLongPolling: true})
+
+
+
+  const addColeta = () => {
+    
+  }
 
   return (
     <View style={styles.container}>
