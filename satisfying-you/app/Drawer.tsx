@@ -5,7 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { theme } from "@/constants/theme";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from 'expo-router'; 
-import { auth_mod, app } from '@/firebase/config';
+import { auth_mod } from '@/firebase/config';
 
 const DrawerNavigator = createDrawerNavigator();
 
@@ -38,7 +38,7 @@ const CustomDrawerContent = () => {
     const router = useRouter();
 
     const user = auth_mod.currentUser
-?
+
     return (
         <View style={styles.drawerContainer}>
             <View style={styles.emailContainer}>

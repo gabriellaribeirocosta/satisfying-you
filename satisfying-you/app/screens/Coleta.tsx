@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { theme } from '@/constants/theme';
 import { MaterialIcons } from '@expo/vector-icons';
-import { initializeFirestore } from 'firebase/firestore';
+import { addDoc, collection, doc, initializeFirestore } from 'firebase/firestore';
 import { app, auth_mod } from '@/firebase/config';
 
 export default function Coleta() {
@@ -17,14 +17,26 @@ export default function Coleta() {
     }, 3000);
   };
 
-  const user = auth_mod.currentUser
-  
   const db = initializeFirestore(app, {experimentalForceLongPolling: true})
 
+  const user = auth_mod.currentUser
+  const uid = user.uid
+
+  //Funcionou
+  const coletaCollections = collection(db, "nova pesquisa/1eFPPJ6avMo0jV2ikmml/coletar")
 
 
   const addColeta = () => {
     
+    addDoc(coletaCollections, {
+        pessimo: "Rodrigo"
+    }).then((docRef) => {
+        console.log("Novo documento inserido: " + JSON.stringify(docRef))
+    }).catch((err) => {
+        console.log("Erro: " + err)
+    })
+
+    handleIconPress()
   }
 
   return (
@@ -33,7 +45,7 @@ export default function Coleta() {
         <Text style={styles.title}>O que você achou do Carnaval 2024?</Text>
       </View>
       <View style={styles.content}>
-        <TouchableOpacity style={styles.icon} onPress={handleIconPress}>
+        <TouchableOpacity style={styles.icon} onPress={addColeta}>
           <MaterialIcons name="sentiment-very-dissatisfied" size={75} color="red" />
           <Text style={styles.label}>Péssimo</Text>
         </TouchableOpacity>
