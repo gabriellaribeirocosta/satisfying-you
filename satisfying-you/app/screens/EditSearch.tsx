@@ -2,10 +2,13 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-nativ
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import Popup from '@/components/Popup';
-import { updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import { updateDoc, doc, deleteDoc, collection, query, onSnapshot, getDoc } from 'firebase/firestore';
+import { useLocalSearchParams } from 'expo-router';
+import { useRoute } from '@react-navigation/native';
+import { db } from '@/firebase/config';
 
 export default function EditSearch() {
     const [nome, setNome] = useState('');
@@ -14,6 +17,40 @@ export default function EditSearch() {
     const [errorNome, setErrorNome] = useState('');
     const [errorDate, setErrorDate] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const params = useLocalSearchParams();
+    const { id } = params;
+
+    async function fetchDocument(id) {
+      if (!id) return; // Se não houver ID, não faz nada
+  
+      const docRef = doc(db, "nova pesquisa", id); // Cria a referência do documento corretamente
+  
+      try {
+        const docSnap = await getDoc(docRef); // Aguarda a busca do documento
+  
+        if (docSnap.exists()) {
+          const data = docSnap.data(); // Obtém os dados do documento
+          //console.log("Dados do documento:", data);
+  
+          // Atualiza os estados com os dados do documento
+          setNome(data.nome || '');
+          setDate(data.data || '');
+          setImagemBase64(data.image || '');
+        } else {
+          console.log("Documento não encontrado!");
+        }
+      } catch (error) {
+        console.error("Erro ao buscar o documento:", error);
+      }
+    }
+
+    //Chama a função para buscar o documento
+    useEffect(() => {
+      if (id) {
+        fetchDocument(id);
+      }
+    }, [id]);
 
     const handleSave = () => {
         let valid = true;
