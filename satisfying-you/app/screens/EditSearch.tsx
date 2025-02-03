@@ -104,7 +104,7 @@ export default function EditSearch() {
         try {
             await deleteDoc(doc(db, "nova pesquisa", id));
             alert("Pesquisa apagada com sucesso!");
-            navigation.goBack(); // Volta para a tela anterior após deletar
+            //navigation.goBack(); // Volta para a tela anterior após deletar
         } catch (error) {
             console.error("Erro ao apagar a pesquisa:", error);
         }
@@ -115,12 +115,14 @@ export default function EditSearch() {
     }
 
     function confirmarApagar() {
-        deletePesquisa(id);
-        setModalIsOpen(false);
+      console.log("ConfirmarApagar")
+      deletePesquisa(id);
+      setModalIsOpen(false);
     }
 
     function handleFecharModal(){
-        setModalIsOpen(false)
+      console.log("HandleFechar Ativado")
+      setModalIsOpen(false)
     }
 
     
@@ -173,7 +175,11 @@ export default function EditSearch() {
                     <Text style={styles.texto}>Apagar</Text>
                 </TouchableOpacity>
             </View>
-            {modalIsOpen && <Popup message={'Tem certeza de apagar essa pesquisa?'} onClose={handleFecharModal} onConfirm={confirmarApagar}/>}
+            {modalIsOpen && <Popup message={'Tem certeza de apagar essa pesquisa?'} onClose={() => {
+              handleFecharModal()
+            }} 
+            onConfirm={confirmarApagar}/>}
+          
         </View>
     );
 }
