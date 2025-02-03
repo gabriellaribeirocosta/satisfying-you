@@ -21,9 +21,7 @@ export default function Report() {
   const params = useLocalSearchParams();
   const { id } = params;
 
-  //const coletaDocRef = doc(db, "nova pesquisa", id)
   const coletaCollection = collection(db, "nova pesquisa/" + id + "/coletar")
-  //console.log(coletaDocRef)
   //console.log(coletaCollection)
 
   useEffect(() => {
