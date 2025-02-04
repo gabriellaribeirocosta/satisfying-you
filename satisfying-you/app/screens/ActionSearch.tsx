@@ -1,33 +1,14 @@
 import { StyleSheet, View } from 'react-native'
 import { theme } from '@/constants/theme'
 import { CardOp } from '@/components/CardOp';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'expo-router';
 
 export default function ActionSearch() {
-  const [ myId, setMyId ] = useState("")
-
   const router = useRouter();
 
-  const params = useLocalSearchParams()
-  const {id} = params
-
-  //guarda ID
-  useEffect(() => {
-    if (id) {
-      setMyId(id);
-      console.log(id);
-    }
-  }, [id]);
-
-  //passa o ID da pesquisa
   const handlePress = (path:string) => {
-    router.push({
-        pathname: path,
-        params: { id: myId }
-    });
+    router.push(path);
   }
-  
 
   return (
     <View style={styles.container}>

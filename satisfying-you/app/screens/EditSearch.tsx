@@ -2,12 +2,10 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-nativ
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import Popup from '@/components/Popup';
-import { updateDoc, doc, deleteDoc, getDoc } from 'firebase/firestore';
-import { useLocalSearchParams } from 'expo-router';
-import { db } from '@/firebase/config';
+import { updateDoc, doc, deleteDoc } from 'firebase/firestore';
 
 export default function EditSearch() {
     const [nome, setNome] = useState('');
@@ -16,39 +14,6 @@ export default function EditSearch() {
     const [errorNome, setErrorNome] = useState('');
     const [errorDate, setErrorDate] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    const params = useLocalSearchParams();
-    const { id } = params;
-
-    async function fetchDocument(id) {
-      if (!id) return;
-  
-      const docRef = doc(db, "nova pesquisa", id);
-  
-      try {
-        const docSnap = await getDoc(docRef); // Aguarda a busca do documento
-  
-        if (docSnap.exists()) {
-          const data = docSnap.data(); // Obtém os dados do documento
-          //console.log("Dados do documento:", data);
-  
-          setNome(data.nome || '');
-          setDate(data.data || '');
-          setImagemBase64(data.image || '');
-        } else {
-          console.log("Documento não encontrado!");
-        }
-      } catch (error) {
-        console.error("Erro ao buscar o documento:", error);
-      }
-    }
-
-    //Chama a função para buscar o documento
-    useEffect(() => {
-      if (id) {
-        fetchDocument(id);
-      }
-    }, [id]);
 
     const handleSave = () => {
         let valid = true;
@@ -70,7 +35,7 @@ export default function EditSearch() {
             setErrorDate('');
         }
         if (valid){
-            changePesquisa(id, nome, date, imagemBase64);
+            changePesquisa(idPesquisa, nome, date, imagemBase64);
             alert("Pesquisa atualizada com sucesso!");
         }
     }
@@ -81,7 +46,7 @@ export default function EditSearch() {
             return;
         }
 
-        const pesRef = doc(db, "nova pesquisa", id);
+        const pesRef = doc(db, "pesquisa", id);
 
         try {
             await updateDoc(pesRef, {
@@ -102,9 +67,9 @@ export default function EditSearch() {
         }
 
         try {
-            await deleteDoc(doc(db, "nova pesquisa", id));
+            await deleteDoc(doc(db, "pesquisa", id));
             alert("Pesquisa apagada com sucesso!");
-            //navigation.goBack(); // Volta para a tela anterior após deletar
+            navigation.goBack(); // Volta para a tela anterior após deletar
         } catch (error) {
             console.error("Erro ao apagar a pesquisa:", error);
         }
@@ -115,14 +80,12 @@ export default function EditSearch() {
     }
 
     function confirmarApagar() {
-      console.log("ConfirmarApagar")
-      deletePesquisa(id);
-      setModalIsOpen(false);
+        deletePesquisa(id);
+        setModalIsOpen(false);
     }
 
     function handleFecharModal(){
-      console.log("HandleFechar Ativado")
-      setModalIsOpen(false)
+        setModalIsOpen(false)
     }
 
     
@@ -175,11 +138,7 @@ export default function EditSearch() {
                     <Text style={styles.texto}>Apagar</Text>
                 </TouchableOpacity>
             </View>
-            {modalIsOpen && <Popup message={'Tem certeza de apagar essa pesquisa?'} onClose={() => {
-              handleFecharModal()
-            }} 
-            onConfirm={confirmarApagar}/>}
-          
+            {modalIsOpen && <Popup message={'Tem certeza de apagar essa pesquisa?'} onClose={handleFecharModal} onConfirm={confirmarApagar}/>}
         </View>
     );
 }
