@@ -74,7 +74,7 @@ export default function EditSearch() {
         if (valid){
             changePesquisa(id, nome, date, imagemBase64);
             alert("Pesquisa atualizada com sucesso!");
-            router.push('/screens/Home')
+            router.push('/Drawer')
         }
     }
 
@@ -93,7 +93,7 @@ export default function EditSearch() {
                 image: novaImagem
             });
             alert("Pesquisa atualizada com sucesso!");
-            router.push('/screens/Home')
+            router.push('/Drawer')
         } catch (error) {
             console.error("Erro ao atualizar a pesquisa:", error);
         }
@@ -108,7 +108,7 @@ export default function EditSearch() {
         try {
             await deleteDoc(doc(db, "nova pesquisa", id));
             alert("Pesquisa apagada com sucesso!");
-            router.push('/screens/Home')
+            router.push('/Drawer')
             //navigation.goBack(); // Volta para a tela anterior após deletar
         } catch (error) {
             console.error("Erro ao apagar a pesquisa:", error);

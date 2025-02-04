@@ -32,9 +32,8 @@ export default function SignUp() {
     .then((userCredential) => {
       setError('');
       console.log("usuario criado com sucesso: " + JSON.stringify(userCredential))
-        router.push('/screens/Home');
-      })
-      .catch((error) => {
+      router.push('/screens/Home');
+    }).catch((error) => {
         console.error('Erro ao criar usuário: ' + error)
       });
   }
