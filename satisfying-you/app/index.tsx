@@ -36,7 +36,6 @@ export default function Login() {
           console.log('erro ao autenticar usuario: ' + error)
         }
       })
-
   }
 
   function handleRegistro() {
