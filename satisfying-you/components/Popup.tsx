@@ -12,7 +12,8 @@ interface ConfirmationModalProps {
   
 export default function ConfirmationModal({
     message,
-    onClose
+    onClose,
+    onConfirm
     }: ConfirmationModalProps) {
 
     return (
@@ -22,7 +23,7 @@ export default function ConfirmationModal({
             <View style={styles.modalButtonContainer}>
               <TouchableOpacity
                 style={[styles.modalButton, styles.modalButtonSim]}
-                onPress={onClose}
+                onPress={onConfirm}
               >
                 <Text style={styles.modalButtonText}>SIM</Text>
               </TouchableOpacity>

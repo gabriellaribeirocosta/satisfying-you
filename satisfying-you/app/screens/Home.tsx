@@ -1,20 +1,71 @@
-import { StyleSheet, View, Text, ScrollView, TextInput} from "react-native";
+import { StyleSheet, View, Text, ScrollView, TextInput, FlatList, TouchableOpacity} from "react-native";
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
 import { useRouter } from "expo-router";
 import { Card } from "@/components/Card";
+import { query, onSnapshot, initializeFirestore, collection } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { app, db } from '../../firebase/config'
+import React from "react";
 
 export default function Home () {
     const router = useRouter();
+    const searchCollection = collection(db, "nova pesquisa");
+    const [listaPesquisas, setListaPesquisas] = useState([])
+    const [listaId, setListaId] = useState([])
+
     function handleNovaPes(){
         router.push('/screens/NewSearch');
     }
 
-    function handleAcoes() {
-        router.push('/screens/ActionSearch')
+    function handleAcoes(id: string) {
+        router.push({
+            pathname: '/screens/ActionSearch',
+            params: { id: listaId[id] }
+        });
     }
+
+    useEffect( () => {
+        const q = query(searchCollection)
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+
+            const search = [];
+            const ids = []
+
+            snapshot.forEach((doc) => {
+                search.push({
+                    id: doc.id,
+                    ...doc.data()
+                })
+
+                ids.push(doc.id)
+            })
+
+
+            setListaId(ids)
+            setListaPesquisas(search)
+        })
+
+        return () => unsubscribe();
+    }, [])
+
+    console.log(listaId)
+
+    const itemPesquisa = ({item}) => {
+        return(
+            <Card 
+                nome={item.nome}
+                data={item.data}
+                onPress={() => {changePesquisa(item.id)}}
+                icon={item.imagemBase64}
+            />
+            
+            
+        )
+    }
+
 
     return(
         <View style={styles.container}>
@@ -25,14 +76,18 @@ export default function Home () {
             <View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll}>
                     <View style={styles.cards}>
-                        <Card nome={'Secomp 2023'} data={'10/10/2023'} onPress={handleAcoes} icon={'devices'}></Card>
-                        <Card nome={'Ubuntu 2022'} data={'05/06/2022'} onPress={handleAcoes} icon={'groups'}></Card>
-                        <Card nome={'Meninas CPU'} data={'01/04/2022'} onPress={handleAcoes} icon={'woman'} ></Card>
-                        <Card nome={'Secomp 2023'} data={'10/10/2023'} onPress={handleAcoes} icon={'devices'}></Card>
-                        <Card nome={'Ubuntu 2022'} data={'05/06/2022'} onPress={handleAcoes} icon={'groups'}></Card>
-                        <Card nome={'Meninas CPU'} data={'01/04/2022'} onPress={handleAcoes} icon={'woman'} ></Card>
+                        {listaPesquisas.map((item, index) => (
+                            <Card 
+                                key={item.id} 
+                                nome={item.nome} 
+                                data={item.data} 
+                                onPress={() => {handleAcoes(index)}} 
+                                image={item.imagemBase64} 
+                            />
+                        ))}
                     </View>
                 </ScrollView>
+                
             </View>
             <View>
                 <Btn title={"Nova Pesquisa"} style={{marginTop: 20, width: '90%', marginLeft: 40 }} onPress={handleNovaPes}/>

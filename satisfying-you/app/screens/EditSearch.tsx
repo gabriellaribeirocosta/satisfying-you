@@ -2,16 +2,55 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-nativ
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import Popup from '@/components/Popup';
+import { updateDoc, doc, deleteDoc, getDoc } from 'firebase/firestore';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { db } from '@/firebase/config';
+import React from 'react';
 
 export default function EditSearch() {
     const [nome, setNome] = useState('');
     const [date, setDate] = useState('');
+    const [imagemBase64, setImagemBase64] = useState('');
     const [errorNome, setErrorNome] = useState('');
     const [errorDate, setErrorDate] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const router = useRouter()
+
+    const params = useLocalSearchParams();
+    const { id } = params;
+
+    async function fetchDocument(id) {
+      if (!id) return;
+  
+      const docRef = doc(db, "nova pesquisa", id);
+  
+      try {
+        const docSnap = await getDoc(docRef); // Aguarda a busca do documento
+  
+        if (docSnap.exists()) {
+          const data = docSnap.data(); // Obtém os dados do documento
+          //console.log("Dados do documento:", data);
+  
+          setNome(data.nome || '');
+          setDate(data.data || '');
+          setImagemBase64(data.image || '');
+        } else {
+          console.log("Documento não encontrado!");
+        }
+      } catch (error) {
+        console.error("Erro ao buscar o documento:", error);
+      }
+    }
+
+    //Chama a função para buscar o documento
+    useEffect(() => {
+      if (id) {
+        fetchDocument(id);
+      }
+    }, [id]);
 
     const handleSave = () => {
         let valid = true;
@@ -32,15 +71,66 @@ export default function EditSearch() {
             setErrorNome('');
             setErrorDate('');
         }
+        if (valid){
+            changePesquisa(id, nome, date, imagemBase64);
+            alert("Pesquisa atualizada com sucesso!");
+            router.push('/screens/Home')
+        }
     }
+
+    const changePesquisa = async (id, novoNome, novaData, novaImagem) => {
+        if (!id) {
+            console.error("ID da pesquisa não encontrado!");
+            return;
+        }
+
+        const pesRef = doc(db, "nova pesquisa", id);
+
+        try {
+            await updateDoc(pesRef, {
+                nome: novoNome,
+                ano: novaData,
+                image: novaImagem
+            });
+            alert("Pesquisa atualizada com sucesso!");
+            router.push('/screens/Home')
+        } catch (error) {
+            console.error("Erro ao atualizar a pesquisa:", error);
+        }
+    };
+
+    const deletePesquisa = async (id) => {
+        if (!id) {
+            console.error("ID da pesquisa não encontrado!");
+            return;
+        }
+
+        try {
+            await deleteDoc(doc(db, "nova pesquisa", id));
+            alert("Pesquisa apagada com sucesso!");
+            router.push('/screens/Home')
+            //navigation.goBack(); // Volta para a tela anterior após deletar
+        } catch (error) {
+            console.error("Erro ao apagar a pesquisa:", error);
+        }
+    };
 
     function handleApagar() {
         setModalIsOpen(true)
     }
 
-    function handleFecharModal(){
-        setModalIsOpen(false)
+    function confirmarApagar() {
+      console.log("ConfirmarApagar")
+      deletePesquisa(id);
+      setModalIsOpen(false);
     }
+
+    function handleFecharModal(){
+      console.log("HandleFechar Ativado")
+      setModalIsOpen(false)
+    }
+
+    
 
     return (
         <View style={styles.container}>
@@ -90,7 +180,11 @@ export default function EditSearch() {
                     <Text style={styles.texto}>Apagar</Text>
                 </TouchableOpacity>
             </View>
-            {modalIsOpen && <Popup message={'Tem certeza de apagar essa pesquisa?'} onClose={handleFecharModal}></Popup>}
+            {modalIsOpen && <Popup message={'Tem certeza de apagar essa pesquisa?'} onClose={() => {
+              handleFecharModal()
+            }} 
+            onConfirm={confirmarApagar}/>}
+          
         </View>
     );
 }

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, Image, Pressable } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Image, Pressable, Touchable, TouchableOpacity } from 'react-native';
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Btn } from "@/components/Btn";
@@ -28,7 +28,7 @@ export default function EditSearch() {
         const docUser = {
             nome: nome,
             data: date,
-            image: imagemBase64 // A rmazena a string Base64 no Firestore
+            image: imagemBase64 // Armazena a string Base64 no Firestore
         };
     
         try {
@@ -37,6 +37,8 @@ export default function EditSearch() {
         } catch (erro) {
             console.error("Erro ao salvar documento:", erro);
         }
+
+        
     };
     
 
