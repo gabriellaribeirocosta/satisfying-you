@@ -8,6 +8,7 @@ import { Card } from "@/components/Card";
 import { query, onSnapshot, initializeFirestore, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { app, db } from '../../firebase/config'
+import React from "react";
 
 export default function Home () {
     const router = useRouter();
@@ -75,12 +76,6 @@ export default function Home () {
             <View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll}>
                     <View style={styles.cards}>
-                        <Card nome={'Secomp 2023'} data={'10/10/2023'} onPress={handleAcoes} icon={'devices'}></Card>
-                        <Card nome={'Ubuntu 2022'} data={'05/06/2022'} onPress={handleAcoes}  icon={'groups'}></Card>
-                        <Card nome={'Meninas CPU'} data={'01/04/2022'} onPress={handleAcoes} icon={'woman'} ></Card>
-                        <Card nome={'Secomp 2023'} data={'10/10/2023'} onPress={handleAcoes} icon={'devices'}></Card>
-                        <Card nome={'Ubuntu 2022'} data={'05/06/2022'} onPress={handleAcoes} icon={'groups'}></Card>
-                        <Card nome={'Meninas CPU'} data={'01/04/2022'} onPress={handleAcoes} icon={'woman'} ></Card>
                         {listaPesquisas.map((item, index) => (
                             <Card 
                                 key={item.id} 

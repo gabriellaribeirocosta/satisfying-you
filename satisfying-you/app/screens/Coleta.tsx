@@ -59,6 +59,7 @@ export default function Coleta() {
     addDoc(coletaCollections, {
         nota: valor
     }).then((docRef) => {
+      
         //console.log("Novo documento inserido: " + JSON.stringify(docRef))
     }).catch((err) => {
         console.log("Erro: " + err)

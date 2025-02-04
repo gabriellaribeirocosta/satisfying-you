@@ -6,8 +6,9 @@ import { useEffect, useState } from 'react';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import Popup from '@/components/Popup';
 import { updateDoc, doc, deleteDoc, getDoc } from 'firebase/firestore';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { db } from '@/firebase/config';
+import React from 'react';
 
 export default function EditSearch() {
     const [nome, setNome] = useState('');
@@ -16,6 +17,7 @@ export default function EditSearch() {
     const [errorNome, setErrorNome] = useState('');
     const [errorDate, setErrorDate] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const router = useRouter()
 
     const params = useLocalSearchParams();
     const { id } = params;
@@ -72,6 +74,7 @@ export default function EditSearch() {
         if (valid){
             changePesquisa(id, nome, date, imagemBase64);
             alert("Pesquisa atualizada com sucesso!");
+            router.push('/screens/Home')
         }
     }
 
@@ -90,6 +93,7 @@ export default function EditSearch() {
                 image: novaImagem
             });
             alert("Pesquisa atualizada com sucesso!");
+            router.push('/screens/Home')
         } catch (error) {
             console.error("Erro ao atualizar a pesquisa:", error);
         }
@@ -104,6 +108,7 @@ export default function EditSearch() {
         try {
             await deleteDoc(doc(db, "nova pesquisa", id));
             alert("Pesquisa apagada com sucesso!");
+            router.push('/screens/Home')
             //navigation.goBack(); // Volta para a tela anterior após deletar
         } catch (error) {
             console.error("Erro ao apagar a pesquisa:", error);
