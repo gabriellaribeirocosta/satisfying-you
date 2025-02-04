@@ -7,50 +7,38 @@ import { useRouter } from "expo-router";
 import { Card } from "@/components/Card";
 import { query, onSnapshot, initializeFirestore, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { app, db } from '../../firebase/config'
+import { app } from '../../firebase/config'
 
 export default function Home () {
     const router = useRouter();
+    const db = initializeFirestore(app, {experimentalForceLongPolling: true});
     const searchCollection = collection(db, "nova pesquisa");
     const [listaPesquisas, setListaPesquisas] = useState([])
-    const [listaId, setListaId] = useState([])
 
     function handleNovaPes(){
         router.push('/screens/NewSearch');
     }
 
-    function handleAcoes(id: string) {
-        router.push({
-            pathname: '/screens/ActionSearch',
-            params: { id: listaId[id] }
-        });
+    function handleAcoes() {
+        router.push('/screens/ActionSearch')
     }
 
     useEffect( () => {
         const q = query(searchCollection)
         const unsubscribe = onSnapshot(q, (snapshot) => {
-
             const search = [];
-            const ids = []
-
             snapshot.forEach((doc) => {
                 search.push({
                     id: doc.id,
                     ...doc.data()
                 })
-
-                ids.push(doc.id)
             })
 
-
-            setListaId(ids)
             setListaPesquisas(search)
         })
 
         return () => unsubscribe();
     }, [])
-
-    console.log(listaId)
 
     const itemPesquisa = ({item}) => {
         return(
@@ -76,17 +64,17 @@ export default function Home () {
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll}>
                     <View style={styles.cards}>
                         <Card nome={'Secomp 2023'} data={'10/10/2023'} onPress={handleAcoes} icon={'devices'}></Card>
-                        <Card nome={'Ubuntu 2022'} data={'05/06/2022'} onPress={handleAcoes}  icon={'groups'}></Card>
+                        <Card nome={'Ubuntu 2022'} data={'05/06/2022'} onPress={handleAcoes} icon={'groups'}></Card>
                         <Card nome={'Meninas CPU'} data={'01/04/2022'} onPress={handleAcoes} icon={'woman'} ></Card>
                         <Card nome={'Secomp 2023'} data={'10/10/2023'} onPress={handleAcoes} icon={'devices'}></Card>
                         <Card nome={'Ubuntu 2022'} data={'05/06/2022'} onPress={handleAcoes} icon={'groups'}></Card>
                         <Card nome={'Meninas CPU'} data={'01/04/2022'} onPress={handleAcoes} icon={'woman'} ></Card>
-                        {listaPesquisas.map((item, index) => (
+                        {listaPesquisas.map((item) => (
                             <Card 
                                 key={item.id} 
                                 nome={item.nome} 
                                 data={item.data} 
-                                onPress={() => {handleAcoes(index)}} 
+                                onPress={handleAcoes} 
                                 image={item.imagemBase64} 
                             />
                         ))}
