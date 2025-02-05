@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import Popup from '@/components/Popup';
 import { updateDoc, doc, deleteDoc, getDoc } from 'firebase/firestore';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 import { db } from '@/firebase/config';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function EditSearch() {
     const [nome, setNome] = useState('');
@@ -17,10 +17,9 @@ export default function EditSearch() {
     const [errorNome, setErrorNome] = useState('');
     const [errorDate, setErrorDate] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const router = useRouter()
 
-    const params = useLocalSearchParams();
-    const { id } = params;
+    const id = useSelector((state) => state.idRouter.id)
+    //console.log("AQUI: " + id)
 
     async function fetchDocument(id) {
       if (!id) return;

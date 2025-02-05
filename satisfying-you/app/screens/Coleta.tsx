@@ -5,12 +5,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
 import { app, auth_mod, db } from '@/firebase/config';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function Coleta() {
 
   const [ nome, setNome] = useState("")
 
-  const router = useRouter();
 
   const handleIconPress = () => {
     // Redirection to acknowledment page 
@@ -21,11 +21,8 @@ export default function Coleta() {
     }, 3000);
   };
 
-  const params = useLocalSearchParams();
-  const { id } = params;
-
-  const user = auth_mod.currentUser
-  const uid = user.uid
+  const id = useSelector((state) => state.idRouter.id)
+  //console.log("AQUI - coleta: " + id)
 
   async function fetchDocument(){
 
