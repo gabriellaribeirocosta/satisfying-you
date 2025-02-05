@@ -9,6 +9,8 @@ import { query, onSnapshot, initializeFirestore, collection } from "firebase/fir
 import { useEffect, useState } from "react";
 import { app, db } from '../../firebase/config'
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { reducerSetId } from "@/redux/slices/idRouterSlice";
 
 export default function Home () {
     const router = useRouter();
@@ -16,14 +18,24 @@ export default function Home () {
     const [listaPesquisas, setListaPesquisas] = useState([])
     const [listaId, setListaId] = useState([])
 
+    const dispatch = useDispatch()
+
+    const id = useSelector((state) => state.idRouter.id)
+
+    console.log("Aqui está o ID: " + id)
+
+    const saveId = (id) => {
+      dispatch(reducerSetId(listaId[id]))
+    }
+
     function handleNovaPes(){
         router.push('/screens/NewSearch');
     }
 
     function handleAcoes(id: string) {
+        saveId(id)
         router.push({
-            pathname: '/screens/ActionSearch',
-            params: { id: listaId[id] }
+            pathname: '/screens/ActionSearch'
         });
     }
 

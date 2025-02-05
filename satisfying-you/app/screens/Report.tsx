@@ -3,7 +3,7 @@ import { theme } from '@/constants/theme';
 import { useEffect, useState } from 'react';
 import { collection, doc, onSnapshot, query } from 'firebase/firestore';
 import { db } from '@/firebase/config';
-import { useLocalSearchParams } from 'expo-router';
+import { useSelector } from 'react-redux';
 
 export default function Report() {
   const [valor, setValor] = useState([])
@@ -18,8 +18,8 @@ export default function Report() {
     { label: 'Péssimo', color: colors[4] },
   ];
 
-  const params = useLocalSearchParams();
-  const { id } = params;
+  const id = useSelector((state) => state.idRouter.id)
+  //console.log("AQUI: " + id)
 
   const coletaCollection = collection(db, "nova pesquisa/" + id + "/coletar")
   //console.log(coletaCollection)

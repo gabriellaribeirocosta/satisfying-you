@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./slices/authSlice"; ///Sim eu importei tudo errado pq peguei do chat KKKKKKKKKKKKKKKKK
+import idRouterSlice from "./slices/idRouterSlice";
 
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
+    idRouter: idRouterSlice
   },
 });
 
