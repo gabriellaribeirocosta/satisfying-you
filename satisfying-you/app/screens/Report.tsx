@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { collection, doc, onSnapshot, query } from 'firebase/firestore';
 import { db } from '@/firebase/config';
 import { useLocalSearchParams } from 'expo-router';
+import { PieChart } from 'react-native-svg-charts';
 
 export default function Report() {
   const [valor, setValor] = useState([])
@@ -78,12 +79,56 @@ export default function Report() {
 
   console.log(contarNotas(valor))
 
+  const data = [
+    {
+        key: 1,
+        value: valor[0],
+        svg: { fill: colors[0] }
+        //arc: { outerRadius: '130%', cornerRadius: 10,  }
+    },
+    {
+        key: 2,
+        value: 1,
+        svg: { fill: colors[1] }
+    },
+    {
+        key: 3,
+        value: 2,
+        svg: { fill: colors[2] }
+    },
+    {
+        key: 4,
+        value: 3,
+        svg: { fill: colors[3] }
+    },
+    {
+        key: 5,
+        value: 4,
+        svg: { fill: colors[4] }
+    }
+]
+
+console.log(data)
+console.log(valor)
+
+/*  
+
+<PieChart
+    style={{ height: 200 }}
+    outerRadius={'70%'}
+    innerRadius={10}
+    data={data}
+/>
+
+*/
   return (
     <View style={styles.container}>
+        <View>
+
+        </View>
         <View style={styles.image}>  
             <Image
-                source={require('../../public/images/piechart.png')}
-                style={{ width: 270, height: 270 }}
+             Chart avaliacoes={valor}
             />
         </View>  
         <View style={styles.legenda}>
