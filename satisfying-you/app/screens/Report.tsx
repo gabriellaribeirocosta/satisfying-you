@@ -78,38 +78,39 @@ export default function Report() {
   }
 
   console.log(contarNotas(valor))
+  const quantidade_avaliacao = contarNotas(valor)
 
   const data = [
     {
         key: 1,
-        value: valor[0],
+        value: quantidade_avaliacao[0],
         svg: { fill: colors[0] }
         //arc: { outerRadius: '130%', cornerRadius: 10,  }
     },
     {
         key: 2,
-        value: 1,
+        value: quantidade_avaliacao[1],
         svg: { fill: colors[1] }
     },
     {
         key: 3,
-        value: 2,
+        value: quantidade_avaliacao[2],
         svg: { fill: colors[2] }
     },
     {
         key: 4,
-        value: 3,
+        value: quantidade_avaliacao[3],
         svg: { fill: colors[3] }
     },
     {
         key: 5,
-        value: 4,
+        value: quantidade_avaliacao[4],
         svg: { fill: colors[4] }
     }
 ]
 
 console.log(data)
-console.log(valor)
+//console.log(valor[0].nota)
 
 /*  
 
@@ -127,9 +128,6 @@ console.log(valor)
 
         </View>
         <View style={styles.image}>  
-            <Image
-             Chart avaliacoes={valor}
-            />
         </View>  
         <View style={styles.legenda}>
             {legendItems.map((item, index) => (
