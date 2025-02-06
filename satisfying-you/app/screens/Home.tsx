@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, ScrollView, TextInput, FlatList, TouchableOpacity} from "react-native";
+import { StyleSheet, View, Text, Image, ScrollView, TextInput, FlatList, TouchableOpacity} from "react-native";
 import { theme } from "@/constants/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
@@ -71,7 +71,7 @@ export default function Home () {
                 nome={item.nome}
                 data={item.data}
                 onPress={() => {changePesquisa(item.id)}}
-                icon={item.imagemBase64}
+                image={item.image}
             />
             
             
@@ -89,13 +89,16 @@ export default function Home () {
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll}>
                     <View style={styles.cards}>
                         {listaPesquisas.map((item, index) => (
-                            <Card 
-                                key={item.id} 
-                                nome={item.nome} 
-                                data={item.data} 
-                                onPress={() => {handleAcoes(index)}} 
-                                image={item.imagemBase64} 
-                            />
+                            <View>
+                                <Card 
+                                    key={item.id} 
+                                    nome={item.nome} 
+                                    data={item.data} 
+                                    onPress={() => {handleAcoes(index)}} 
+                                    image={item.image} 
+                                />
+
+                            </View>
                         ))}
                     </View>
                 </ScrollView>
