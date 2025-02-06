@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function Coleta() {
-
+  const router = useRouter();
   const [ nome, setNome] = useState("")
 
 
