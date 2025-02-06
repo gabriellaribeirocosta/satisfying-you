@@ -7,11 +7,14 @@ interface CardProps {
     icon?: React.ComponentProps<typeof MaterialIcons>['name']
     nome: string
     data: string,
+    image: string,
     onPress: () => void
 }
 
-export function Card({ icon, nome, data, onPress }:CardProps) {
-      
+export function Card({ icon, image, nome, data, onPress }: CardProps) {
+    console.log("Imagem recebida no Card:", image);
+    console.log("Imagem do card ", nome);
+
     return (
         <View style={styles.card}>
             <TouchableOpacity onPress={onPress}>
@@ -23,12 +26,18 @@ export function Card({ icon, nome, data, onPress }:CardProps) {
                         style={styles.icon}
                     />
                 )}
+                <Image 
+                    source={{ uri: `data:image/jpeg;base64,${image}` }} 
+                    style={{ height: 50, width: 50 }} 
+                />
+
                 <Text style={styles.nome}>{nome}</Text>
                 <Text style={styles.data}>{data}</Text>
             </TouchableOpacity>
         </View>
-    )
+    );
 }
+
 
 const styles = StyleSheet.create({
     card: {
